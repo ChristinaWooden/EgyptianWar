@@ -38,21 +38,48 @@ public class EgyptianWar
 
 	public void keyPressed(KeyEvent e)
 	{
-		switch(toUpperCase(e.getKeyChar()))
-		{
-			case 'SPACE':keys[0]=true;break;
-			case '1':keys[1]=true;break;
-			case 'N':keys[2]=true;break;
+		if (e.getKeyCode()==KeyEvent.VK_1){
+			key[0]=true;
 		}
+		if(e.getKeyCode()==KeyEvent.VK_SPACE){
+			key[1]=true;
+		}
+		if(e.getKeyCode()==KeyEvent.VK_N){
+			key[2]=true;
+		}
+		repaint();
 	}
 	
 	public void keyReleased(KeyEvent e)
 	{
-		switch(toUpperCase(e.getKeyChar()))
-		{
-			case 'SPACE':keys[0]=false;break;
-			case '1':keys[1]=false;break;
-			case 'N':keys[2]=false;break;
+		if (e.getKeyCode()==KeyEvent.VK_1){
+			key[0]=false;
 		}
+		if(e.getKeyCode()==KeyEvent.VK_SPACE){
+			key[1]=false;
+		}
+		if(e.getKeyCode()==KeyEvent.VK_N){
+			key[2]=false;
+		}
+		repaint();
 	}
+	
+	public void keyTyped(KeyEvent e)
+	{
+		//I put this here because it's always been here
+	}
+	
+	public void run()
+	{
+		try
+		{
+			while(true)
+			{
+				Thread.currentThread().sleep(5);
+				repaint();
+			}
+		}catch(Exception e)
+		{
+		}
+  }
 }
