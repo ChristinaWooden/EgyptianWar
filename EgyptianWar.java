@@ -33,7 +33,12 @@ public class EgyptianWar
 	
 	public void paint(Graphics window)
 	{
-	
+		Graphics2D twoDGraph=(Graphics2D)window;
+		if(back==null)
+			back = (BufferedImage)(createImage(getWidth(),getHeight()));
+		Graphics graphToBack = back.createGraphics();
+		//add methods here
+		twoDGraph.drawImage(back, null, 0, 0);
 	}
 
 	public void keyPressed(KeyEvent e)
