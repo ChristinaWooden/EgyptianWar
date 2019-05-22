@@ -13,19 +13,43 @@ import java.util.ArrayList;
 
 public class EgyptianWar
 {
-	private Deck center;
+	private Deck deck;
+	private ArrayList<Card> center;
 	private boolean[] keys;
 	private BufferedImage back;
+	private ArrayList<Player> players;
 	
-	public EgyptianWar()
+	public EgyptianWar(int num)
 	{
+
+		//instance variables
 		deck = new Deck();
-		center = new Deck();
+		center = new ArrayList<Card>();
 		keys = new boolean[3];
+		players = new ArrayList<Player>();
+
+
+		//add players to game
+		//number of players should be determined in TheGame.java
+		for (int i = 0; i < num; i++){
+			players.add(new Player());
+		}
+
+		//deal cards to each player
+		do{
+			for (int i = 0; i < players.size(); i++){
+				(players.get(i)).addCard((deck.remove(0)));
+			}
+		}while(deck.size() > 0);
+
+
+		//other setup things
 		setBackground(Color.WHITE);
 		setVisible(true);  
 		new Thread(this).start();
 		addKeyListener(this);
+
+
 	}
 	
 	public void update(Graphics window)
@@ -73,7 +97,7 @@ public class EgyptianWar
 
 	public boolean isDouble(Deck center){
 		if (center.size() >= 2){
-			if ((center.get(0).getFace()).equals(center.get(1).getFace())){
+			if (((center.get(0)).getFace()) == ((center.get(1)).getFace())){
 				return true;
 			}
 			return false;
@@ -83,7 +107,7 @@ public class EgyptianWar
 	public boolean isSandwich(Deck center){
 		if (center.size() >= 3){
 			if (!isDouble(center)){
-				if (center.get(0).getFace().equals(center.get(2).getFace())){
+				if ((center.get(0)).getFace() == (center.get(2)).getFace()){
 					return true;
 				}
 			}
