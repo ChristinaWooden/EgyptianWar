@@ -68,6 +68,12 @@ public class EgyptianWar
 		}
 		repaint();
 	}
+
+	public boolean isDouble(){
+		if ()
+			return false;
+	}
+}
 	
 	public void keyTyped(KeyEvent e)
 	{
