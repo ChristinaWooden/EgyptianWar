@@ -20,6 +20,7 @@ public class EgyptianWar
 	public EgyptianWar()
 	{
 		deck = new Deck();
+		center = new Deck();
 		keys = new boolean[3];
 		setBackground(Color.WHITE);
 		setVisible(true);  
@@ -70,11 +71,25 @@ public class EgyptianWar
 		repaint();
 	}
 
-	public boolean isDouble(){
-		if ()
+	public boolean isDouble(Deck center){
+		if (center.size() >= 2){
+			if ((center.get(0).getFace()).equals(center.get(1).getFace())){
+				return true;
+			}
 			return false;
+		}
 	}
-}
+
+	public boolean isSandwich(Deck center){
+		if (center.size() >= 3){
+			if (!isDouble(center)){
+				if (center.get(0).getFace().equals(center.get(2).getFace())){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	
 	public void keyTyped(KeyEvent e)
 	{
