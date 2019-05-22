@@ -8,11 +8,12 @@ import java.awt.event.KeyEvent;
 import static java.lang.Character.*;
 import java.awt.image.BufferedImage;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.ArrayList;
 
 public class EgyptianWar
 {
-	private Deck deck;
+	private Deck center;
 	private boolean[] keys;
 	private BufferedImage back;
 	
