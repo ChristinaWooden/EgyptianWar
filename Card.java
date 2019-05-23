@@ -111,6 +111,11 @@ public class Card
     return false;
   }
 
+  public void draw(Graphics window,int x,int y,int w,int h)
+  {
+    window.drawImage(image,x,y,w,h,null);
+  }
+  
   //toString
 
   public String toString(){
