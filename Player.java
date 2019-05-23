@@ -38,21 +38,21 @@ public class Player{
 
 	public int mustPlace(int face){
 		if (face > 0 && face < 10){
-			return 1;
+			place = 1;
 		}
 		else if (face == 0){
-			return 4;
+			place = 4;
 		}
 		else if (face == 10){
-			return 1;
+			place = 1;
 		}
 		else if (face == 11){
-			return 2;
+			place = 2;
 		}
 		else if (face == 12){
-			return 3;
+			place = 3;
 		}
-		return 0;
+		return place;
 	}
 
 	//during each play, a player will place down the "last" card in their ArrayList in the center pile.  The returned Card will be added to the center deck.
