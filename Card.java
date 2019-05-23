@@ -1,30 +1,79 @@
+import java.io.File;
+import java.net.URL;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.imageio.ImageIO;
+
 public class Card
 {
-  public static final String FACES[] = {"ACE","TWO","THREE","FOUR",
-                                        "FIVE","SIX","SEVEN","EIGHT","NINE","TEN","JACK","QUEEN","KING"};
+  public static final String FACES[] = {"ACE","TWO","THREE","FOUR","FIVE","SIX","SEVEN","EIGHT","NINE","TEN","JACK","QUEEN","KING"};
 
   private String suit;
   private int face;
+  private String name;
+  private Image image;
 
   //constructors
   public Card(){
+    String name="";
   	suit = "SPADES";
   	face = 3;
+    name="images/"+FACES[face]+suit+".jpg";
+    try
+    {
+      URL url = getClass().getResource(name);
+      image = ImageIO.read(url);
+    }
+    catch(Exception e)
+    {
+      System.out.println("Choose a real card");
+    }
   }
 
   public Card(String s){
   	suit = s;
   	face = 3;
+    name="images/"+FACES[face]+suit+".jpg";
+    try
+    {
+      URL url = getClass().getResource(name);
+      image = ImageIO.read(url);
+    }
+    catch(Exception e)
+    {
+      System.out.println("Choose a real card");
+    }
   }
 
   public Card(int f){
   	suit = "SPADES";
   	face = f;
+    name="images/"+FACES[face]+suit+".jpg";
+    try
+    {
+      URL url = getClass().getResource(name);
+      image = ImageIO.read(url);
+    }
+    catch(Exception e)
+    {
+      System.out.println("Choose a real card");
+    }
   }
 
   public Card(int f, String s){
   	suit = s;
   	face = f;
+    name="images/"+FACES[face]+suit+".jpg";
+    try
+    {
+      URL url = getClass().getResource(name);
+      image = ImageIO.read(url);
+    }
+    catch(Exception e)
+    {
+      System.out.println("Choose a real card");
+    }
   }
 
 
