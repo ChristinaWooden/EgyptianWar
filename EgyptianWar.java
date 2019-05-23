@@ -84,13 +84,13 @@ public class EgyptianWar extends Canvas implements KeyListener. Runnable
 	public void keyReleased(KeyEvent e)
 	{
 		if (e.getKeyCode()==KeyEvent.VK_1){
-			key[0]=false;
+			keys[0]=false;
 		}
 		if(e.getKeyCode()==KeyEvent.VK_SPACE){
-			key[1]=false;
+			keys[1]=false;
 		}
 		if(e.getKeyCode()==KeyEvent.VK_N){
-			key[2]=false;
+			keys[2]=false;
 		}
 		repaint();
 	}
