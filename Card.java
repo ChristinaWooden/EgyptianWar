@@ -12,6 +12,7 @@ public class Card
   private String suit;
   private int face;
   private String name;
+  private String path;
   private Image image;
 
   //constructors
@@ -19,7 +20,8 @@ public class Card
     String name="";
   	suit = "SPADES";
   	face = 3;
-    name="images/"+FACES[face]+suit+".jpg";
+    name=FACES[face]+suit;
+    path="images/"+name.toLowerCase()+".jpg";
     try
     {
       URL url = getClass().getResource(name);
@@ -34,7 +36,8 @@ public class Card
   public Card(String s){
   	suit = s;
   	face = 3;
-    name="images/"+FACES[face]+suit+".jpg";
+    name=FACES[face]+suit;
+    path="images/"+name.toLowerCase()+".jpg";    
     try
     {
       URL url = getClass().getResource(name);
@@ -49,7 +52,8 @@ public class Card
   public Card(int f){
   	suit = "SPADES";
   	face = f;
-    name="images/"+FACES[face]+suit+".jpg";
+    name=FACES[face]+suit;
+    path="images/"+name.toLowerCase()+".jpg";    
     try
     {
       URL url = getClass().getResource(name);
@@ -64,7 +68,8 @@ public class Card
   public Card(int f, String s){
   	suit = s;
   	face = f;
-    name="images/"+FACES[face]+suit+".jpg";
+    name=FACES[face]+suit;
+    path="images/"+name.toLowerCase()+".jpg";    
     try
     {
       URL url = getClass().getResource(name);
