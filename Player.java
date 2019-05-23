@@ -1,9 +1,12 @@
+import java.util.List;
+import java.util.ArrayList;
+
+
 public class Player{
 	private int wins;
 	private ArrayList<Card> hand;
 
-
-	public Player(int num){
+	public Player(){
 		hand = new ArrayList<Card>();
 		wins = 0;
 	}
@@ -24,8 +27,13 @@ public class Player{
 		wins = num;
 	}
 
+	//during each play, a player will place down the "last" card in their ArrayList in the center pile.  The returned Card will be added to the center deck.
+	//player will still be able to slap into the game if they have no cards left
 	public Card placeCard(){
-		return hand.remove(hand.size()-1);
+		if (hand.size() > 0){
+			return hand.remove(hand.size()-1);
+		}
+		return null;
 	}
 
 
@@ -34,7 +42,10 @@ public class Player{
 	}
 
 	public Card burn(){
-		return hand.remove(hand.size()-1);
+		if (hand.size() > 0){
+			return hand.remove(hand.size()-1);
+		}
+		return null;
 	}
 
 
