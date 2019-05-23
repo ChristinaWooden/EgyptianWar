@@ -18,8 +18,10 @@ public class EgyptianWar extends Canvas implements KeyListener. Runnable
 	private boolean[] keys;
 	private BufferedImage back;
 	private ArrayList<Player> players;
+	private int width;
+	private int height;
 	
-	public EgyptianWar(int num)
+	public EgyptianWar(int w,int h,int num)
 	{
 
 		//instance variables
@@ -27,8 +29,8 @@ public class EgyptianWar extends Canvas implements KeyListener. Runnable
 		center = new ArrayList<Card>();
 		keys = new boolean[3];
 		players = new ArrayList<Player>();
-
-
+		width=w;
+		height=h;
 		//add players to game
 		//number of players should be determined in TheGame.java
 		for (int i = 0; i < num; i++){
@@ -64,6 +66,7 @@ public class EgyptianWar extends Canvas implements KeyListener. Runnable
 			back = (BufferedImage)(createImage(getWidth(),getHeight()));
 		Graphics graphToBack = back.createGraphics();
 		//add methods here
+		
 		twoDGraph.drawImage(back, null, 0, 0);
 	}
 
