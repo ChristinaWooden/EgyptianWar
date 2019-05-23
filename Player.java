@@ -36,6 +36,10 @@ public class Player{
 		place = p;
 	}
 
+	public int getPlace(){
+		return place;
+	}
+
 	public int mustPlace(int face){
 		if (face > 0 && face < 10){
 			place = 1;
