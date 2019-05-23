@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.ArrayList;
 
-public class EgyptianWar
+public class EgyptianWar extends Canvas implements KeyListener. Runnable
 {
 	private Deck deck;
 	private ArrayList<Card> center;
@@ -47,7 +47,7 @@ public class EgyptianWar
 		setBackground(Color.WHITE);
 		setVisible(true);  
 		new Thread(this).start();
-		addKeyListener(this);
+		this.addKeyListener(this);
 
 
 	}
