@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.ArrayList;
 
-public class EgyptianWar extends Canvas implements KeyListener. Runnable
+public class EgyptianWar extends Canvas implements KeyListener, Runnable
 {
 	private Deck deck;
 	private ArrayList<Card> center;
