@@ -95,7 +95,7 @@ public class EgyptianWar extends Canvas implements KeyListener. Runnable
 		repaint();
 	}
 
-	public boolean isDouble(Deck center){
+	public boolean isDouble(ArrayList<Card> center){
 		if (center.size() >= 2){
 			if (((center.get(0)).getFace()) == ((center.get(1)).getFace())){
 				return true;
@@ -104,7 +104,7 @@ public class EgyptianWar extends Canvas implements KeyListener. Runnable
 		}
 	}
 
-	public boolean isSandwich(Deck center){
+	public boolean isSandwich(ArrayList<Card> center){
 		if (center.size() >= 3){
 			if (!isDouble(center)){
 				if ((center.get(0)).getFace() == (center.get(2)).getFace()){
