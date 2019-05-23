@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 public class Player{
 	private int wins;
+	private int place; //number of cards the player must place at any given moment
 	private ArrayList<Card> hand;
 
 	public Player(){
 		hand = new ArrayList<Card>();
 		wins = 0;
+		place = 0;
 	}
 
 	public void addCard(Card c){
@@ -25,6 +27,32 @@ public class Player{
 
 	public void setNumWins(int num){
 		wins = num;
+	}
+
+
+
+	//the card played before the player determines the number of cards each player must play
+	public void setPlace(int p){
+		place = p;
+	}
+
+	public int mustPlace(int face){
+		if (face > 0 && face < 10){
+			return 1;
+		}
+		else if (face == 0){
+			return 4;
+		}
+		else if (face == 10){
+			return 1;
+		}
+		else if (face == 11){
+			return 2;
+		}
+		else if (face == 12){
+			return 3;
+		}
+		return 0;
 	}
 
 	//during each play, a player will place down the "last" card in their ArrayList in the center pile.  The returned Card will be added to the center deck.
