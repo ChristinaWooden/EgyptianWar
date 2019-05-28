@@ -123,14 +123,23 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 	}
 
 	public boolean isQueen(ArrayList<Card> center){
+		if ((center.get(0)).getFace() == 11){
+			return true;
+		}
 		return false;
 	}
 
 	public boolean isJack(ArrayList<Card> center){
+		if ((center.get(0)).getFace() == 10){
+			return true;
+		}
 		return false;
 	}
 
 	public boolean isKing(ArrayList<Card> center){
+		if ((center.get(0)).getFace() == 12){
+			return true;
+		}
 		return false;
 	}
 	
