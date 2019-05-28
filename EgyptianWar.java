@@ -121,6 +121,18 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		}
 		return false;
 	}
+
+	public boolean isQueen(ArrayList<Card> center){
+		return false;
+	}
+
+	public boolean isJack(ArrayList<Card> center){
+		return false;
+	}
+
+	public boolean isKing(ArrayList<Card> center){
+		return false;
+	}
 	
 	public void keyTyped(KeyEvent e)
 	{
