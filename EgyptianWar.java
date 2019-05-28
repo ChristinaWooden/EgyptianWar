@@ -150,6 +150,13 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		return false;
 	}
 
+	public boolean isAce(){
+		if ((center.get(0)).getFace() == 0){
+			return true;
+		}
+		return false;
+	}
+
 	public boolean gameOver(){
 		return (deck.size() == 0);
 	}
