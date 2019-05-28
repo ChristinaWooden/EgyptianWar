@@ -72,6 +72,13 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		  center[i].draw(10+(upperDisplay-i)*91,10,365,485);
 		}
 		twoDGraph.drawImage(back, null, 0, 0);
+
+
+
+
+
+
+
 	}
 
 	public void keyPressed(KeyEvent e)
@@ -102,7 +109,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		repaint();
 	}
 
-	public boolean isDouble(ArrayList<Card> center){
+	public boolean isDouble(){
 		if (center.size() >= 2){
 			if (((center.get(0)).getFace()) == ((center.get(1)).getFace())){
 				return true;
@@ -111,9 +118,9 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		}
 	}
 
-	public boolean isSandwich(ArrayList<Card> center){
+	public boolean isSandwich(){
 		if (center.size() >= 3){
-			if (!isDouble(center)){
+			if (!isDouble()){
 				if ((center.get(0)).getFace() == (center.get(2)).getFace()){
 					return true;
 				}
@@ -122,25 +129,29 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		return false;
 	}
 
-	public boolean isQueen(ArrayList<Card> center){
+	public boolean isQueen(){
 		if ((center.get(0)).getFace() == 11){
 			return true;
 		}
 		return false;
 	}
 
-	public boolean isJack(ArrayList<Card> center){
+	public boolean isJack(){
 		if ((center.get(0)).getFace() == 10){
 			return true;
 		}
 		return false;
 	}
 
-	public boolean isKing(ArrayList<Card> center){
+	public boolean isKing(){
 		if ((center.get(0)).getFace() == 12){
 			return true;
 		}
 		return false;
+	}
+
+	public boolean gameOver(){
+		return (deck.size() == 0);
 	}
 	
 	public void keyTyped(KeyEvent e)
