@@ -128,7 +128,17 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		}
 		return false;
 	}
-
+	
+	public boolean isMarriage(){
+		if(center.size()>=2){
+	  		if(center.get(0).getFace()==11||center.get(0).getFace()==12){
+	  			if((!center.get(1).getFace()==center.get(0).getFace())&&(center.get(1).getFace()==11||center.get(1).getFace()==12){
+					return true;
+				}
+			}
+		}
+	}
+	
 	public boolean isQueen(){
 		if ((center.get(0)).getFace() == 11){
 			return true;
