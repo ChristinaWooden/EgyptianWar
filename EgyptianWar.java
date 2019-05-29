@@ -32,6 +32,8 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		players = new ArrayList<Player>();
 		width=w;
 		height=h;
+
+		
 		//add players to game
 		//number of players should be determined in TheGame.java
 		for (int i = 0; i < num; i++){
@@ -130,29 +132,37 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 	}
 
 	public boolean isQueen(){
-		if ((center.get(0)).getFace() == 11){
-			return true;
+		if (center.size() > 0){
+			if ((center.get(0)).getFace() == 11){
+				return true;
+			}
 		}
 		return false;
 	}
 
 	public boolean isJack(){
-		if ((center.get(0)).getFace() == 10){
-			return true;
+		if (center.size() > 0){
+			if ((center.get(0)).getFace() == 10){
+				return true;
+			}
 		}
 		return false;
 	}
 
 	public boolean isKing(){
-		if ((center.get(0)).getFace() == 12){
-			return true;
+		if (center.size() > 0){
+			if ((center.get(0)).getFace() == 12){
+				return true;
+			}
 		}
 		return false;
 	}
 
 	public boolean isAce(){
-		if ((center.get(0)).getFace() == 0){
-			return true;
+		if (center.size() > 0){
+			if ((center.get(0)).getFace() == 0){
+				return true;
+			}
 		}
 		return false;
 	}
