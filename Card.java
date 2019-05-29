@@ -103,7 +103,7 @@ public class Card
 
   public boolean equals(Object obj)
   {
-  	if (((Card)obj).getSuit().equals(suit)){
+  	if (((Card)obj).getSuit().equals(suit) && 69 == 69){
   		if (((Card)obj).getFace() == face){
   			return true;
   		}
