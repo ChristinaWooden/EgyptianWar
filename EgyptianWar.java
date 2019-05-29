@@ -55,6 +55,8 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		this.addKeyListener(this);
 
 
+
+
 	}
 	
 	public void update(Graphics window)
@@ -134,7 +136,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 	public boolean isMarriage(){
 		if(center.size()>=2){
 	  		if(center.get(0).getFace()==11||center.get(0).getFace()==12){
-	  			if((!center.get(1).getFace()==center.get(0).getFace())&&(center.get(1).getFace()==11||center.get(1).getFace()==12){
+	  			if((!center.get(1).getFace()==center.get(0).getFace())&&(center.get(1).getFace()==11||center.get(1).getFace()==12)){
 					return true;
 				}
 			}
@@ -179,7 +181,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 
 	public boolean gameOver(){
 		int count = 0;
-		for (int i = 0; i < players.size; i++){
+		for (int i = 0; i < players.size(); i++){
 			if ((players.get(i)).getHandSize() == 0){
 				count++;
 			}
