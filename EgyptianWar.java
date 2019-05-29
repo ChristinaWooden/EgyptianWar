@@ -178,6 +178,12 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 	}
 
 	public boolean gameOver(){
+		int count = 0;
+		for (int i = 0; i < players.size; i++){
+			if ((players.get(i)).getHandSize() == 0){
+				count++;
+			}
+		}
 		return (deck.size() == 0);
 	}
 	
