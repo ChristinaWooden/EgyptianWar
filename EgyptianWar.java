@@ -73,7 +73,11 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		//add methods here
 		upperDisplay=Math.min(4,center.size()-1);
 		for(int i=upperDisplay;i>=0;i--){
+<<<<<<< HEAD
 		  (center.get(i)).draw(10+(upperDisplay-i)*91,10,365,485);
+=======
+		  center.get(i).draw(10+(upperDisplay-i)*91,10,365,485);
+>>>>>>> 8cc000c58eaddb1b8cb47257fecac70f85c3353d
 		}
 		twoDGraph.drawImage(back, null, 0, 0);
 
