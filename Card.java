@@ -32,7 +32,7 @@ public class Card
       
     }
   }
-
+ 
   public Card(String s){
   	suit = s;
   	face = 3;
