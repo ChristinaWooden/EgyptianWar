@@ -98,12 +98,12 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 			if ((players.get(i)).slap()){
 				if (isSandwich() || isDouble() || isMarriage() || isGay()){
 					//take the center pile and add it to the player's hand
-					for (int i = center.size(); i > 0; i--){
-						(players.get(i)).addCard(center.remove(i));
+					for (int e = center.size(); e > 0; e--){
+						(players.get(i)).addCard(center.remove(e));
 					}
 				}
 				else {
-					center.add(0, (players.get(i)).burn());
+					center.add((players.get(i)).burn());
 				}
 			}
 		}
