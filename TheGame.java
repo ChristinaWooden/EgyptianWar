@@ -10,10 +10,10 @@ public class TheGame extends JFrame
   
   public TheGame()
   {
+    super("EGYPTIAN WAR");
     Scanner k=new Scanner(System.in);
     System.out.print("Enter number of players: ");
     players=k.nextInt();
-    super("EGYPTIAN WAR");
     setSize(WIDTH,HEIGHT);
     EgyptianWar game = new EgyptianWar(WIDTH,HEIGHT,players);
     ((Component)game).setFocusable(true);
