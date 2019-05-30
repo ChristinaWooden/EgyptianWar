@@ -25,7 +25,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 	private int width;
 	private int height;
 	private int upperDisplay;
-	private Image image;
+	private Mahogany mahogany;
 	
 	public EgyptianWar(int w,int h,int num)
 	{
@@ -37,6 +37,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		players = new ArrayList<Player>();
 		width=w;
 		height=h;
+		mahogany=new Mahogany(w,h);
 
 		
 		//add players to game
@@ -54,6 +55,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 
 
 		//other setup things
+		setBackground(Color.WHITE);
 		setVisible(true);  
 		new Thread(this).start();
 		this.addKeyListener(this);
@@ -76,7 +78,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 			back = (BufferedImage)(createImage(getWidth(),getHeight()));
 		Graphics graphToBack = back.createGraphics();
 		//add methods here
-		try
+		/*try
     		{
       			URL url = getClass().getResource("images/mahogany.jpg");
       			image = ImageIO.read(url);
@@ -85,7 +87,8 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
     		{
       
     		}
-		twoDGraph.drawImage(image, 0, 0, null);
+		twoDGraph.drawImage(image, 0, 0, null);*/
+		mahogany.draw(graphToBack);
 		upperDisplay=Math.min(4,center.size()-1);
 		for(int i=upperDisplay;i>=0;i--){
 		  (center.get(i)).draw(graphToBack,(10+(upperDisplay-i)*91),10,365,485);
