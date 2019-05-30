@@ -54,7 +54,6 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 
 
 		//other setup things
-		"images/mahogany.jpg");
 		setVisible(true);  
 		new Thread(this).start();
 		this.addKeyListener(this);
