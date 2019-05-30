@@ -29,7 +29,7 @@ public class Card
     }
     catch(Exception e)
     {
-      System.out.println("Choose a real card");
+      
     }
   }
 
