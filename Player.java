@@ -59,6 +59,14 @@ public class Player{
 		return place;
 	}
 
+		
+	//call this method only after you have called placeCard and mustPlace, because the method counts on the recentCard being updated to what was just placed
+	public void payMoreCards(){
+		if (recentCard.isRoyal()){
+			place = 0;
+		}
+	}
+	
 	//during each play, a player will place down the "last" card in their ArrayList in the center pile.  The returned Card will be added to the center deck.
 	//player will still be able to slap into the game if they have no cards left
 	public Card placeCard(){
