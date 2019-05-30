@@ -107,6 +107,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 					center.add(0, (players.get(i)).burn());
 				}
 			}
+		}
 
 
 	}
