@@ -79,9 +79,19 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		twoDGraph.drawImage(back, null, 0, 0);
 
 
-
-
-
+		//in order to either burn or gain cards after slapping
+		for (int i = 0; i < players.size(); i++){
+			if ((players.get(i)).slap()){
+				if (isSandwich || isDouble || isMarriage || isGay){
+					//take the center pile and add it to the player's hand
+					for (int i = center.size(); i > 0; i--){
+						(players.get(i)).addCard(center.remove(i));
+					}
+				}
+				else {
+					center.add(0, (players.get(i)).burn());
+				}
+			}
 
 
 	}
