@@ -1,3 +1,7 @@
+import java.io.File;
+import java.net.URL;
+import java.awt.Image;
+import javax.imageio.ImageIO;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -21,6 +25,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 	private int width;
 	private int height;
 	private int upperDisplay;
+	private Image image;
 	
 	public EgyptianWar(int w,int h,int num)
 	{
@@ -49,7 +54,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 
 
 		//other setup things
-		setBackground("images/mahogany.jpg");
+		"images/mahogany.jpg");
 		setVisible(true);  
 		new Thread(this).start();
 		this.addKeyListener(this);
@@ -71,6 +76,16 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 			back = (BufferedImage)(createImage(getWidth(),getHeight()));
 		Graphics graphToBack = back.createGraphics();
 		//add methods here
+		try
+    		{
+      			URL url = getClass().getResource("images/mahogany.jpg");
+      			image = ImageIO.read(url);
+    		}
+    		catch(Exception e)
+    		{
+      
+    		}
+		twoDGraph.drawImage(image, 0, 0, null);
 		upperDisplay=Math.min(4,center.size()-1);
 		for(int i=upperDisplay;i>=0;i--){
 		  (center.get(i)).draw(graphToBack,(10+(upperDisplay-i)*91),10,365,485);
