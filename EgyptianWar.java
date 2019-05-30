@@ -72,7 +72,6 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 	
 	public void paint(Graphics window)
 	{
-		window.drawImage(image, 0, 0, null);
 		Graphics2D twoDGraph=(Graphics2D)window;
 		if(back==null)
 			back = (BufferedImage)(createImage(getWidth(),getHeight()));
