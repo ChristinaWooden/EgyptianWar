@@ -73,8 +73,8 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		//add methods here
 		upperDisplay=Math.min(4,center.size()-1);
 		for(int i=upperDisplay;i>=0;i--){
-		  (center.get(i)).draw(10+(upperDisplay-i)*91,10,365,485);
-		  center.get(i).draw(10+(upperDisplay-i)*91,10,365,485);
+		  (center.get(i)).draw(graphToBack,(10+(upperDisplay-i)*91),10,365,485);
+		  (center.get(i)).draw(graphToBack,(10+(upperDisplay-i)*91),10,365,485);
 		}
 		twoDGraph.drawImage(back, null, 0, 0);
 
@@ -119,8 +119,8 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 			if (center.get(0).getFace()==center.get(1).getFace()&&center.get(0).getFace()<10&&center.get(0).getFace()<10){
 				return true;
 			}
-			return false;
 		}
+		return false;
 	}
 
 	public boolean isSandwich(){
@@ -150,8 +150,8 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 			if (center.get(0).getFace()==center.get(1).getFace()&&center.get(0).getFace()>=10&&center.get(0).getFace()>=10){
 				return true;
 			}
-			return false;
 		}
+		return false;
 	}
 	
 	public boolean isQueen(){
