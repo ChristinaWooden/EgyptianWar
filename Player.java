@@ -6,6 +6,7 @@ public class Player{
 	private int wins;
 	private int place; //number of cards the player must place at any given moment
 	private ArrayList<Card> hand;
+	private Card recentCard = null;
 
 	public Player(){
 		hand = new ArrayList<Card>();
@@ -71,6 +72,7 @@ public class Player{
 	//player will still be able to slap into the game if they have no cards left
 	public Card placeCard(){
 		if (hand.size() > 0){
+			recentCard = hand.get(hand.size()-1);
 			return hand.remove(hand.size()-1);
 		}
 		return null;
