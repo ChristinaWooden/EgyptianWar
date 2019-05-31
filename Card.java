@@ -90,6 +90,10 @@ public class Card
   public void setFace(int f){
   	face = f;
   }
+
+  public boolean isRoyal(){
+  	return (getFace() == 0 || getFace() == 10 || getFace() == 11 || getFace() == 12);
+  }
  
 
   //accessors
