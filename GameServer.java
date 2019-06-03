@@ -6,6 +6,10 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.concurrent.Executors;
 
+
+
+// ALL OF THIS IS TAKEN FROM ONLINE- CHANGE
+
 /**
  * A server for a multi-player tic tac toe game. Loosely based on an example in
  * Deitel and Deitel’s “Java How to Program” book. For this project I created a
@@ -26,7 +30,7 @@ import java.util.concurrent.Executors;
  *     TIE
  *     MESSAGE <text>
  */
-public class TicTacToeServer {
+public class GameServer {
 
     public static void main(String[] args) throws Exception {
         try (var listener = new ServerSocket(58901)) {
