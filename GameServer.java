@@ -11,7 +11,7 @@ import java.util.concurrent.Executors;
  * capitalizing it, and sending the response back is all done on the thread, allowing
  * much greater throughput because more clients can be handled concurrently.
  */
-public class CapitalizeServer {
+public class GameServer {
 
     /**
      * Runs the server. When a client connects, the server spawns a new thread to do
@@ -20,19 +20,19 @@ public class CapitalizeServer {
      * the server to run out of resources by allocating too many threads).
      */
     public static void main(String[] args) throws Exception {
-        try (var listener = new ServerSocket(59898)) {
-            System.out.println("The capitalization server is running...");
+        try (var listener = new ServerSocket(6966696)) {
+            System.out.println("The Egyptian War server is running...");
             var pool = Executors.newFixedThreadPool(20);
             while (true) {
-                pool.execute(new Capitalizer(listener.accept()));
+                pool.execute(new Player(listener.accept()));
             }
         }
     }
 
-    private static class Capitalizer implements Runnable {
+    private static class Game implements Runnable {
         private Socket socket;
 
-        Capitalizer(Socket socket) {
+        Game(Socket socket) {
             this.socket = socket;
         }
 
