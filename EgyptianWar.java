@@ -73,16 +73,16 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 
 
 				if (center.size() > 0){
-					if (isAce()){
+					if (isAce(0)){
 						(players.get(i)).setPlace(4);
 					}
-					else if (isKing()){
+					else if (isKing(0)){
 						(players.get(i)).setPlace(3);
 					}
-					else if (isQueen()){
+					else if (isQueen(0)){
 						(players.get(i)).setPlace(2);
 					}
-					else if (isJack()){
+					else if (isJack(0)){
 						(players.get(i)).setPlace(1);
 					}
 					else{
@@ -101,8 +101,32 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 				}while (place > 0);
 
 
-				if (isQueen() || isJack() || isKing() || isAce()){
+				if (isQueen(0) || isJack(0) || isKing(0) || isAce(0)){
 					(players.get(i)).setPlace(0);
+				}
+
+				//if player n does not play a face card after player n-1 does, player n-1 will gain the cards
+				if (i > 0){
+					if (isJack(1) && !isFace(0)){
+						for (int e = center.size(); e > 0; e--){
+							(players.get(i-1)).addCard(center.remove(e));
+						}
+					}
+					else if (isQueen(2) && !isFace(0)){
+						for (int e = center.size(); e > 0; e--){
+							(players.get(i-1)).addCard(center.remove(e));
+						}
+					}
+					else if (isKing(3) && !isFace(0)){
+						for (int e = center.size(); e > 0; e--){
+							(players.get(i-1)).addCard(center.remove(e));
+						}
+					}
+					else if (isAce(4) && !isFace(0)){
+						for (int e = center.size(); e > 0; e--){
+							(players.get(i-1)).addCard(center.remove(e));
+						}
+					}
 				}
 
 
@@ -253,40 +277,44 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		return false;
 	}
 	
-	public boolean isQueen(){
+	public boolean isQueen(int num){
 		if (center.size() > 0){
-			if ((center.get(0)).getFace() == 11){
+			if ((center.get(num)).getFace() == 11){
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public boolean isJack(){
+	public boolean isJack(int num){
 		if (center.size() > 0){
-			if ((center.get(0)).getFace() == 10){
+			if ((center.get(num)).getFace() == 10){
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public boolean isKing(){
+	public boolean isKing(int num){
 		if (center.size() > 0){
-			if ((center.get(0)).getFace() == 12){
+			if ((center.get(num)).getFace() == 12){
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public boolean isAce(){
+	public boolean isAce(int num){
 		if (center.size() > 0){
-			if ((center.get(0)).getFace() == 0){
+			if ((center.get(num)).getFace() == 0){
 				return true;
 			}
 		}
 		return false;
+	}
+
+	public boolean isFace(int num){
+		return (isAce(num) || isKing(num) || isQueen(num) || isJack(num));
 	}
 
 	public boolean gameOver(){
