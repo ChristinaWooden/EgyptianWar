@@ -76,6 +76,7 @@ public class Player{
 	public Card placeCard(){
 		if (hand.size() > 0){
 			recentCard = hand.get(hand.size()-1);
+			place = getPlace() -1;
 			return hand.remove(hand.size()-1);
 		}
 		return null;
