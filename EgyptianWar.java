@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.ArrayList;
 
+
 public class EgyptianWar extends Canvas implements KeyListener, Runnable
 {
 	private Deck deck;
@@ -26,6 +27,8 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 	private int height;
 	private int upperDisplay;
 	private Mahogany mahogany;
+	private ServerSocket server;
+
 	
 	public EgyptianWar(int w,int h,int num)
 	{

@@ -28,7 +28,7 @@ public class CapitalizeServer {
      * the server to run out of resources by allocating too many threads).
      */
     public static void main(String[] args) throws Exception {
-        try (var listener = new ServerSocket(6966696)) {
+        try (var listener = new ServerSocket(59898)) {
             System.out.println("The capitalization server is running...");
             var pool = Executors.newFixedThreadPool(20);
             while (true) {
