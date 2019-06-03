@@ -98,7 +98,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 					if (keys[0]){
 						(players.get(i)).placeCard();
 					}
-				}while (place > 0);
+				}while ((players.get(i)).getPlace() > 0);
 
 
 				if (isQueen(0) || isJack(0) || isKing(0) || isAce(0)){
@@ -142,7 +142,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 						}
 					}
 					else {
-						center.add((player.get(i)).burn());
+						center.add((players.get(i)).burn());
 					}
 				}
 			}
