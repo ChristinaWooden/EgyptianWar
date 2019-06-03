@@ -2,70 +2,117 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.Scanner;
 import java.util.concurrent.Executors;
 
-
-
-// ALL OF THIS IS TAKEN FROM ONLINE- CHANGE
-
 /**
- * A server program which accepts requests from clients to capitalize strings. When
- * a client connects, a new thread is started to handle it. Receiving client data,
- * capitalizing it, and sending the response back is all done on the thread, allowing
- * much greater throughput because more clients can be handled concurrently.
+ * A multithreaded chat room server. When a client connects the server requests a screen
+ * name by sending the client the text "SUBMITNAME", and keeps requesting a name until
+ * a unique one is received. After a client submits a unique name, the server acknowledges
+ * with "NAMEACCEPTED". Then all messages from that client will be broadcast to all other
+ * clients that have submitted a unique screen name. The broadcast messages are prefixed
+ * with "MESSAGE".
+ *
+ * This is just a teaching example so it can be enhanced in many ways, e.g., better
+ * logging. Another is to accept a lot of fun commands, like Slack.
  */
-<<<<<<< HEAD
-public class GameServer {
-=======
-<<<<<<< HEAD
-public class GameServer {
-=======
-public class CapitalizeServer {
->>>>>>> 4595780741b22c9fc185e1eecadeacbee4f5420f
->>>>>>> 086617117aac510571c3b62951932f81ba11e742
+public class ChatServer {
 
-    /**
-     * Runs the server. When a client connects, the server spawns a new thread to do
-     * the servicing and immediately returns to listening. The application limits the
-     * number of threads via a thread pool (otherwise millions of clients could cause
-     * the server to run out of resources by allocating too many threads).
-     */
+    // All client names, so we can check for duplicates upon registration.
+    private static Set<String> names = new HashSet<>();
+
+     // The set of all the print writers for all the clients, used for broadcast.
+    private static Set<PrintWriter> writers = new HashSet<>();
+
     public static void main(String[] args) throws Exception {
-        try (var listener = new ServerSocket(6966696)) {
-<<<<<<< HEAD
-            System.out.println("The capitalization server is running...");
-=======
-            System.out.println("The Egyptian War server is running...");
->>>>>>> e42cac794bac98fe255346ce1ccd31f4dc5db114
-            var pool = Executors.newFixedThreadPool(20);
+        System.out.println("The chat server is running...");
+        var pool = Executors.newFixedThreadPool(500);
+        try (var listener = new ServerSocket(59001)) {
             while (true) {
-                pool.execute(new Player(listener.accept()));
+                pool.execute(new Handler(listener.accept()));
             }
         }
     }
 
-    private static class Game implements Runnable {
+    /**
+     * The client handler task.
+     */
+    private static class Handler implements Runnable {
+        private String name;
         private Socket socket;
+        private Scanner in;
+        private PrintWriter out;
 
-        Game(Socket socket) {
+        /**
+         * Constructs a handler thread, squirreling away the socket. All the interesting
+         * work is done in the run method. Remember the constructor is called from the
+         * server's main method, so this has to be as short as possible.
+         */
+        public Handler(Socket socket) {
             this.socket = socket;
         }
 
-        @Override
+        /**
+         * Services this thread's client by repeatedly requesting a screen name until a
+         * unique one has been submitted, then acknowledges the name and registers the
+         * output stream for the client in a global set, then repeatedly gets inputs and
+         * broadcasts them.
+         */
         public void run() {
-            System.out.println("Connected: " + socket);
             try {
-                var in = new Scanner(socket.getInputStream());
-                var out = new PrintWriter(socket.getOutputStream(), true);
-                while (in.hasNextLine()) {
-                    out.println(in.nextLine().toUpperCase());
+                in = new Scanner(socket.getInputStream());
+                out = new PrintWriter(socket.getOutputStream(), true);
+
+                // Keep requesting a name until we get a unique one.
+                while (true) {
+                    out.println("SUBMITNAME");
+                    name = in.nextLine();
+                    if (name == null) {
+                        return;
+                    }
+                    synchronized (names) {
+                        if (!name.isBlank() && !names.contains(name)) {
+                            names.add(name);
+                            break;
+                        }
+                    }
+                }
+
+                // Now that a successful name has been chosen, add the socket's print writer
+                // to the set of all writers so this client can receive broadcast messages.
+                // But BEFORE THAT, let everyone else know that the new person has joined!
+                out.println("NAMEACCEPTED " + name);
+                for (PrintWriter writer : writers) {
+                    writer.println("MESSAGE " + name + " has joined");
+                }
+                writers.add(out);
+
+                // Accept messages from this client and broadcast them.
+                while (true) {
+                    String input = in.nextLine();
+                    if (input.toLowerCase().startsWith("/quit")) {
+                        return;
+                    }
+                    for (PrintWriter writer : writers) {
+                        writer.println("MESSAGE " + name + ": " + input);
+                    }
                 }
             } catch (Exception e) {
-                System.out.println("Error:" + socket);
+                System.out.println(e);
             } finally {
+                if (out != null) {
+                    writers.remove(out);
+                }
+                if (name != null) {
+                    System.out.println(name + " is leaving");
+                    names.remove(name);
+                    for (PrintWriter writer : writers) {
+                        writer.println("MESSAGE " + name + " has left");
+                    }
+                }
                 try { socket.close(); } catch (IOException e) {}
-                System.out.println("Closed: " + socket);
             }
         }
     }
