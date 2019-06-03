@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.ArrayList;
+import java.net.Socket;
 
 
 public class Player{
@@ -7,11 +8,13 @@ public class Player{
 	private int place; //number of cards the player must place at any given moment
 	private ArrayList<Card> hand;
 	private Card recentCard = null;
+	private Socket socket;
 
-	public Player(){
+	public Player(Socket socket){
 		hand = new ArrayList<Card>();
 		wins = 0;
 		place = 0;
+		this.socket = socket;
 	}
 
 	public void addCard(Card c){
