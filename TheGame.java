@@ -15,7 +15,7 @@ public class TheGame extends JFrame
     System.out.print("Enter number of players: ");
     players=k.nextInt();
     setSize(WIDTH,HEIGHT);
-    EgyptianWar game = new EgyptianWar(WIDTH,HEIGHT,players);
+    EgyptianWar game = new EgyptianWar(WIDTH, HEIGHT, players);
     ((Component)game).setFocusable(true);
     getContentPane().add(game);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

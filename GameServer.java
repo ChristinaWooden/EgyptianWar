@@ -33,7 +33,11 @@ public class CapitalizeServer {
      */
     public static void main(String[] args) throws Exception {
         try (var listener = new ServerSocket(6966696)) {
+<<<<<<< HEAD
+            System.out.println("The capitalization server is running...");
+=======
             System.out.println("The Egyptian War server is running...");
+>>>>>>> e42cac794bac98fe255346ce1ccd31f4dc5db114
             var pool = Executors.newFixedThreadPool(20);
             while (true) {
                 pool.execute(new Player(listener.accept()));
