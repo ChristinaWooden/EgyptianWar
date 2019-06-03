@@ -5,13 +5,25 @@ import java.net.Socket;
 import java.util.Scanner;
 import java.util.concurrent.Executors;
 
+
+
+// ALL OF THIS IS TAKEN FROM ONLINE- CHANGE
+
 /**
  * A server program which accepts requests from clients to capitalize strings. When
  * a client connects, a new thread is started to handle it. Receiving client data,
  * capitalizing it, and sending the response back is all done on the thread, allowing
  * much greater throughput because more clients can be handled concurrently.
  */
+<<<<<<< HEAD
 public class GameServer {
+=======
+<<<<<<< HEAD
+public class GameServer {
+=======
+public class CapitalizeServer {
+>>>>>>> 4595780741b22c9fc185e1eecadeacbee4f5420f
+>>>>>>> 086617117aac510571c3b62951932f81ba11e742
 
     /**
      * Runs the server. When a client connects, the server spawns a new thread to do
