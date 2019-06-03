@@ -18,8 +18,12 @@ import java.util.concurrent.Executors;
 <<<<<<< HEAD
 public class GameServer {
 =======
+<<<<<<< HEAD
+public class GameServer {
+=======
 public class CapitalizeServer {
 >>>>>>> 4595780741b22c9fc185e1eecadeacbee4f5420f
+>>>>>>> 086617117aac510571c3b62951932f81ba11e742
 
     /**
      * Runs the server. When a client connects, the server spawns a new thread to do
@@ -29,18 +33,22 @@ public class CapitalizeServer {
      */
     public static void main(String[] args) throws Exception {
         try (var listener = new ServerSocket(6966696)) {
+<<<<<<< HEAD
             System.out.println("The capitalization server is running...");
+=======
+            System.out.println("The Egyptian War server is running...");
+>>>>>>> e42cac794bac98fe255346ce1ccd31f4dc5db114
             var pool = Executors.newFixedThreadPool(20);
             while (true) {
-                pool.execute(new Capitalizer(listener.accept()));
+                pool.execute(new Player(listener.accept()));
             }
         }
     }
 
-    private static class Capitalizer implements Runnable {
+    private static class Game implements Runnable {
         private Socket socket;
 
-        Capitalizer(Socket socket) {
+        Game(Socket socket) {
             this.socket = socket;
         }
 

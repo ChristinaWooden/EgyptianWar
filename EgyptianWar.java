@@ -66,6 +66,70 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 
 
 
+		//long ass code block that basically makes a player place the right amount of cards
+		do{
+
+			for (int i = 0; i < players.size(); i++){
+
+
+				if (center.size() > 0){
+					if (isAce()){
+						(players.get(i)).setPlace(4);
+					}
+					else if (isKing()){
+						(players.get(i)).setPlace(3);
+					}
+					else if (isQueen()){
+						(players.get(i)).setPlace(2);
+					}
+					else if (isJack()){
+						(players.get(i)).setPlace(1);
+					}
+					else{
+						(players.get(i)).setPlace(1);
+					}
+				}
+				else {
+					(players.get(i)).setPlace(1);
+				}
+
+
+				do {
+					if (keys[0]){
+						(players.get(i)).placeCard();
+					}
+				}while (place == 0);
+
+
+				if (isQueen() || isJack() || isKing() || isAce()){
+					(players.get(i)).setPlace(0);
+				}
+
+
+			}
+
+
+			//code to check if slap is legal
+			for (int i = 0; i < players.size(); i++){
+				if (keys[1]){
+					if (isDouble() || isSandwich()){
+						for (int e = 0; e < center.size(); e++){
+							(players.get(i)).addCard(center.remove(e));
+						}
+					}
+					else {
+						center.add((player.get(i)).burn());
+					}
+				}
+			}
+
+
+
+
+		}while(!gameOver());
+
+
+
 	}
 	
 	public void update(Graphics window)
