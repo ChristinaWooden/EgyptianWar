@@ -27,7 +27,6 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 	private int height;
 	private int upperDisplay;
 	private Mahogany mahogany;
-	private ServerSocket server;
 
 	
 	public EgyptianWar(int w,int h,int num)
