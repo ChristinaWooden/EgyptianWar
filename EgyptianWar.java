@@ -210,6 +210,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
     		}
 		twoDGraph.drawImage(image, 0, 0, null);*/
 		mahogany.draw(graphToBack);
+		center.add(deck.nextCard());
 		upperDisplay=Math.min(4,center.size()-1);
 		if(center.size()>0){
 			for(int i=upperDisplay;i>=0;i--){
