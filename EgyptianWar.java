@@ -57,7 +57,6 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 
 
 		//other setup things
-		setBackground(Color.WHITE);
 		setVisible(true);  
 		new Thread(this).start();
 		this.addKeyListener(this);
@@ -94,7 +93,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 
 	public boolean isDouble(){
 		if (center.size() >= 2){
-			if (center.get(0).getFace()==center.get(1).getFace()&&center.get(0).getFace()<10&&center.get(0).getFace()<10){
+			if (center.get(0).getFace()==center.get(1).getFace()&&center.get(0).getFace()<10&&center.get(1).getFace()<10){
 				return true;
 			}
 		}
@@ -125,7 +124,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 	
 	public boolean isGay(){
 		if (center.size() >= 2){
-			if (center.get(0).getFace()==center.get(1).getFace()&&center.get(0).getFace()>=10&&center.get(0).getFace()>=10){
+			if (center.get(0).getFace()==center.get(1).getFace()&&center.get(0).getFace()>=10&&center.get(1).getFace()>=10){
 				return true;
 			}
 		}
@@ -211,6 +210,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
     		}
 		twoDGraph.drawImage(image, 0, 0, null);*/
 		mahogany.draw(graphToBack);
+<<<<<<< HEAD
 		if (center.size() > 4){
 			upperDisplay=Math.min(4,center.size()-1);
 		}
@@ -220,10 +220,14 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		for(int i=upperDisplay;i>0;i--){
 		  	(center.get(i)).draw(graphToBack,(10+(upperDisplay-i)*91),10,365,485);
 		}
+=======
+		center.add(deck.nextCard());
+>>>>>>> bb40ac69a7a27468f3e1e615bb4942af729a6f5a
 		upperDisplay=Math.min(4,center.size()-1);
-		upperDisplay=Math.max(0,upperDisplay);
-		for(int i=upperDisplay;i>=0;i--){
-		  (center.get(i)).draw(graphToBack,(10+(upperDisplay-i)*91),10,365,485);
+		if(center.size()>0){
+			for(int i=upperDisplay;i>=0;i--){
+		  		(center.get(i)).draw(graphToBack,(10+(upperDisplay-i)*91),10,365,485);
+			}
 		}
 		graphToBack.setColor(Color.WHITE);
 		graphToBack.fillRect(150, 10, 500, 150);
