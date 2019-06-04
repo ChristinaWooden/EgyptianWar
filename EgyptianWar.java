@@ -93,7 +93,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 
 	public boolean isDouble(){
 		if (center.size() >= 2){
-			if (center.get(0).getFace()==center.get(1).getFace()&&center.get(0).getFace()<10&&center.get(0).getFace()<10){
+			if (center.get(0).getFace()==center.get(1).getFace()&&center.get(0).getFace()<10&&center.get(1).getFace()<10){
 				return true;
 			}
 		}
@@ -124,7 +124,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 	
 	public boolean isGay(){
 		if (center.size() >= 2){
-			if (center.get(0).getFace()==center.get(1).getFace()&&center.get(0).getFace()>=10&&center.get(0).getFace()>=10){
+			if (center.get(0).getFace()==center.get(1).getFace()&&center.get(0).getFace()>=10&&center.get(1).getFace()>=10){
 				return true;
 			}
 		}
