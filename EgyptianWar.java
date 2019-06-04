@@ -188,7 +188,45 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 	}
 
 
-	public void playGame(){
+	public void update(Graphics window)
+	{
+		paint(window);
+	}
+	
+	public void paint(Graphics window)
+	{
+		Graphics2D twoDGraph=(Graphics2D)window;
+		if(back==null)
+			back = (BufferedImage)(createImage(getWidth(),getHeight()));
+		Graphics graphToBack = back.createGraphics();
+		//add methods here
+		/*try
+    		{
+      			URL url = getClass().getResource("images/mahogany.jpg");
+      			image = ImageIO.read(url);
+    		}
+    		catch(Exception e)
+    		{
+      
+    		}
+		twoDGraph.drawImage(image, 0, 0, null);*/
+		mahogany.draw(graphToBack);
+		center.add(deck.nextCard());
+		if (center.size() > 4){
+			upperDisplay=Math.min(4,center.size()-1);
+		}
+		else {
+			upperDisplay = center.size();
+		}
+		for(int i=upperDisplay;i>0;i--){
+		  (center.get(i)).draw(graphToBack,(10+(upperDisplay-i)*91),10,365,485);
+		  (center.get(i)).draw(graphToBack,(10+(upperDisplay-i)*91),10,365,485);
+		}
+		center.add(deck.nextCard());
+		graphToBack.setColor(Color.WHITE);
+		graphToBack.fillRect(150, 10, 500, 150);
+		twoDGraph.drawImage(back, null, 0, 0);
+
 		//long ass code block that basically makes a player place the right amount of cards
 		do{
 
@@ -279,57 +317,6 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 
 	}
 	
-	public void update(Graphics window)
-	{
-		paint(window);
-	}
-	
-	public void paint(Graphics window)
-	{
-		Graphics2D twoDGraph=(Graphics2D)window;
-		if(back==null)
-			back = (BufferedImage)(createImage(getWidth(),getHeight()));
-		Graphics graphToBack = back.createGraphics();
-		//add methods here
-		/*try
-    		{
-      			URL url = getClass().getResource("images/mahogany.jpg");
-      			image = ImageIO.read(url);
-    		}
-    		catch(Exception e)
-    		{
-      
-    		}
-		twoDGraph.drawImage(image, 0, 0, null);*/
-		mahogany.draw(graphToBack);
-		center.add(deck.nextCard());
-		upperDisplay=Math.min(4,center.size()-1);
-		for(int i=upperDisplay;i>=0;i--){
-		  (center.get(i)).draw(graphToBack,(10+(upperDisplay-i)*91),10,365,485);
-		  (center.get(i)).draw(graphToBack,(10+(upperDisplay-i)*91),10,365,485);
-		}
-		center.add(deck.nextCard());
-		graphToBack.setColor(Color.WHITE);
-		graphToBack.fillRect(150, 10, 500, 150);
-		twoDGraph.drawImage(back, null, 0, 0);
-
-
-		//in order to either burn or gain cards after slapping
-		for (int i = 0; i < players.size(); i++){
-			if ((players.get(i)).slap()){
-				if (isSandwich() || isDouble() || isMarriage() || isGay()){
-					//take the center pile and add it to the player's hand
-					for (int e = center.size()-1; e > 0; e--){
-						(players.get(i)).addCard(center.remove(e));
-					}
-				}
-				else {
-					center.add((players.get(i)).burn());
-				}
-			}
-		}
-
-	}
 	
 	public void run()
 	{
