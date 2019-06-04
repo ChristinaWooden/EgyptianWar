@@ -24,7 +24,7 @@ public class Card
     path="images/"+name.toLowerCase()+".jpg";
     try
     {
-      URL url = getClass().getResource(name);
+      URL url = getClass().getResource(path);
       image = ImageIO.read(url);
     }
     catch(Exception e)
