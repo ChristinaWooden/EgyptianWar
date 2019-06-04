@@ -62,9 +62,133 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		new Thread(this).start();
 		this.addKeyListener(this);
 
+	}
+
+	public void keyPressed(KeyEvent e)
+	{
+		if (e.getKeyCode()==KeyEvent.VK_1){
+			keys[0]=true;
+		}
+		if(e.getKeyCode()==KeyEvent.VK_SPACE){
+			keys[1]=true;
+		}
+		if(e.getKeyCode()==KeyEvent.VK_N){
+			keys[2]=true;
+		}
+		repaint();
+	}
+	
+	public void keyReleased(KeyEvent e)
+	{
+		if (e.getKeyCode()==KeyEvent.VK_1){
+			keys[0]=false;
+		}
+		if(e.getKeyCode()==KeyEvent.VK_SPACE){
+			keys[1]=false;
+		}
+		if(e.getKeyCode()==KeyEvent.VK_N){
+			keys[2]=false;
+		}
+		repaint();
+	}
+
+	public boolean isDouble(){
+		if (center.size() >= 2){
+			if (center.get(0).getFace()==center.get(1).getFace()&&center.get(0).getFace()<10&&center.get(0).getFace()<10){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean isSandwich(){
+		if (center.size() >= 3){
+			if (!isDouble()){
+				if ((center.get(0)).getFace() == (center.get(2)).getFace()){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public boolean isMarriage(){
+		if(center.size()>=2){
+	  		if(center.get(0).getFace()>10){
+	  			if(center.get(1).getFace()!=center.get(0).getFace()&&center.get(1).getFace()>10){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public boolean isGay(){
+		if (center.size() >= 2){
+			if (center.get(0).getFace()==center.get(1).getFace()&&center.get(0).getFace()>=10&&center.get(0).getFace()>=10){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean isQueen(int num){
+		if (center.size() > 0){
+			if ((center.get(num)).getFace() == 11){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean isJack(int num){
+		if (center.size() > 0){
+			if ((center.get(num)).getFace() == 10){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean isKing(int num){
+		if (center.size() > 0){
+			if ((center.get(num)).getFace() == 12){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean isAce(int num){
+		if (center.size() > 0){
+			if ((center.get(num)).getFace() == 0){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean isFace(int num){
+		return (isAce(num) || isKing(num) || isQueen(num) || isJack(num));
+	}
+
+	public boolean gameOver(){
+		int count = 0;
+		for (int i = 0; i < players.size(); i++){
+			if ((players.get(i)).getHandSize() == 0){
+				count++;
+			}
+		}
+		return (deck.size() == 0);
+	}
+	
+	public void keyTyped(KeyEvent e)
+	{
+		//I put this here because it's always been here
+	}
 
 
-
+	public void playGame(){
 		//long ass code block that basically makes a player place the right amount of cards
 		do{
 
@@ -205,134 +329,11 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 			}
 		}
 
-
-	}
-
-	public void keyPressed(KeyEvent e)
-	{
-		if (e.getKeyCode()==KeyEvent.VK_1){
-			keys[0]=true;
-		}
-		if(e.getKeyCode()==KeyEvent.VK_SPACE){
-			keys[1]=true;
-		}
-		if(e.getKeyCode()==KeyEvent.VK_N){
-			keys[2]=true;
-		}
-		repaint();
-	}
-	
-	public void keyReleased(KeyEvent e)
-	{
-		if (e.getKeyCode()==KeyEvent.VK_1){
-			keys[0]=false;
-		}
-		if(e.getKeyCode()==KeyEvent.VK_SPACE){
-			keys[1]=false;
-		}
-		if(e.getKeyCode()==KeyEvent.VK_N){
-			keys[2]=false;
-		}
-		repaint();
-	}
-
-	public boolean isDouble(){
-		if (center.size() >= 2){
-			if (center.get(0).getFace()==center.get(1).getFace()&&center.get(0).getFace()<10&&center.get(0).getFace()<10){
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public boolean isSandwich(){
-		if (center.size() >= 3){
-			if (!isDouble()){
-				if ((center.get(0)).getFace() == (center.get(2)).getFace()){
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-	
-	public boolean isMarriage(){
-		if(center.size()>=2){
-	  		if(center.get(0).getFace()>10){
-	  			if(center.get(1).getFace()!=center.get(0).getFace()&&center.get(1).getFace()>10){
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-	
-	public boolean isGay(){
-		if (center.size() >= 2){
-			if (center.get(0).getFace()==center.get(1).getFace()&&center.get(0).getFace()>=10&&center.get(0).getFace()>=10){
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public boolean isQueen(int num){
-		if (center.size() > 0){
-			if ((center.get(num)).getFace() == 11){
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public boolean isJack(int num){
-		if (center.size() > 0){
-			if ((center.get(num)).getFace() == 10){
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public boolean isKing(int num){
-		if (center.size() > 0){
-			if ((center.get(num)).getFace() == 12){
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public boolean isAce(int num){
-		if (center.size() > 0){
-			if ((center.get(num)).getFace() == 0){
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public boolean isFace(int num){
-		return (isAce(num) || isKing(num) || isQueen(num) || isJack(num));
-	}
-
-	public boolean gameOver(){
-		int count = 0;
-		for (int i = 0; i < players.size(); i++){
-			if ((players.get(i)).getHandSize() == 0){
-				count++;
-			}
-		}
-		return (deck.size() == 0);
-	}
-	
-	public void keyTyped(KeyEvent e)
-	{
-		//I put this here because it's always been here
 	}
 	
 	public void run()
 	{
+
 		try
 		{
 			while(true)
@@ -343,5 +344,8 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		}catch(Exception e)
 		{
 		}
-  }
+  	}
+
+
+
 }
