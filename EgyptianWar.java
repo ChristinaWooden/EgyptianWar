@@ -23,10 +23,10 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 	private boolean[] keys;
 	private BufferedImage back;
 	private ArrayList<Player> players;
+	private Image image;
 	private int width;
 	private int height;
 	private int upperDisplay;
-	private Mahogany mahogany;
 
 	
 	public EgyptianWar(int w,int h,int num)
@@ -41,7 +41,15 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		players = new ArrayList<Player>();
 		width=w;
 		height=h;
-		mahogany=new Mahogany(w,h);
+		try
+    		{
+      			URL url = getClass().getResource("images/mahogany.jpg");
+      			image = ImageIO.read(url);
+    		}
+    		catch(Exception e)
+    		{
+      			//mahogany
+    		}
 
 		
 		//add players to game
@@ -61,14 +69,13 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 
 		//other setup things
 		setVisible(true);  
+		this.addKeyListener(this);
 		new Thread(this).start();
-		addKeyListener(this);
 
 	}
 
 	public void keyPressed(KeyEvent e)
-	{ 
-		System.out.println("keyPressed method");
+	{
 		if (e.getKeyCode()==KeyEvent.VK_1){
 			keys[0]=true;
 			System.out.println("Card plced");
@@ -84,8 +91,8 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		repaint();
 	}
 	
-	public void keyReleased(KeyEvent e)	{
-		System.out.println("key released");
+	public void keyReleased(KeyEvent e)	
+	{
 		if (e.getKeyCode()==KeyEvent.VK_1){
 			keys[0]=false;
 		}
@@ -238,20 +245,12 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		graphToBack.setColor(Color.BLACK);
 		graphToBack.drawString("EGYPTIAN WAR", 350, 25);
 		drawCenter(graphToBack);
-
-		do{
-			twoDGraph.drawImage(back, null, 0, 0);
-			playGame();
-		}while(!gameOver());
-
-
-		if (gameOver()){
-			System.out.println("Game over");
-		}
-
-
-		//twoDGraph.drawImage(back, null, 0, 0);
-
+		twoDGraph.drawImage(image,0,0,width,height,null);
+		twoDGraph.drawImage(back, null, 0, 0);
+		playGame();
+		//if (gameOver()){
+		//	System.out.println("Game over");
+		//}
 
 	}
 
