@@ -34,6 +34,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 
 		//instance variables
 		deck = new Deck();
+		deck.shuffle();
 		center = new ArrayList<Card>();
 		keys = new boolean[3];
 		players = new ArrayList<Player>();
@@ -171,13 +172,13 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 	}
 
 	public boolean gameOver(){
-		int count = 0;
+		int count = players.size();
 		for (int i = 0; i < players.size(); i++){
 			if ((players.get(i)).getHandSize() == 0){
-				count++;
+				count--;
 			}
 		}
-		return (deck.size() == 0);
+		return (count == 1);
 	}
 	
 	public void keyTyped(KeyEvent e)
@@ -210,18 +211,18 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		twoDGraph.drawImage(image, 0, 0, null);*/
 		mahogany.draw(graphToBack);
 		center.add(new Card());
-		center.add((players.get(0)).burn());
-		upperDisplay=Math.min(4,center.size()-1);
-		if(center.size()>0){
-			for(int i=0;i<=upperDisplay;i++){
-		  		(center.get(i)).draw(graphToBack, (150+((upperDisplay - i)*69)), 200, 100, 150); 
-			}
-		}
+		center.add(new Card());
+		center.add(new Card());
+		center.add(new Card());
+		center.add(new Card());
+		center.add(new Card());
+		//center.add(0, (players.get(0)).placeCard());
 
 		graphToBack.setColor(Color.WHITE);
 		graphToBack.fillRect(150, 10, 500, 150);
 		graphToBack.setColor(Color.BLACK);
 		graphToBack.drawString("EGYPTIAN WAR", 350, 25);
+		drawCenter(graphToBack);
 
 		do{
 			twoDGraph.drawImage(back, null, 0, 0);
@@ -229,9 +230,23 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		}while(!gameOver());
 
 
+		if (gameOver()){
+			System.out.println("Game over");
+		}
+
+
 		//twoDGraph.drawImage(back, null, 0, 0);
 
 
+	}
+
+	public void drawCenter(Graphics graphToBack){
+		upperDisplay=Math.min(4,center.size()-1);
+		if(center.size()>0){
+			for(int i=upperDisplay-1;i>=0;i--){
+		  		(center.get(i)).draw(graphToBack, (150+((upperDisplay - i)*69)), 200, 100, 150); 
+			}
+		}
 	}
 
 	public void playGame(){
@@ -260,12 +275,14 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 					(players.get(i)).setPlace(1);
 				}
 
-
+				//add a card while you are still supposed to
 				do {
-					if (keys[0]){
-						(players.get(i)).placeCard();
+					if ((players.get(i)).getHandSize() > 0 && keys[0]){
+						Card c = (players.get(i)).placeCard();
+						if (c != null){
+							center.add(0, c);
+						}
 					}
-					repaint();
 				}while ((players.get(i)).getPlace() > 0);
 
 
@@ -274,24 +291,24 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 				}
 
 				//if player n does not play a face card after player n-1 does, player n-1 will gain the cards
-				if (i > 0){
+				if (i > 0 && center.size() > 1){
 					if (isJack(1) && !isFace(0)){
-						for (int e = center.size(); e > 0; e--){
+						for (int e = center.size()-1; e >= 0; e--){
 							(players.get(i-1)).addCard(center.remove(e));
 						}
 					}
-					else if (isQueen(2) && !isFace(0)){
-						for (int e = center.size(); e > 0; e--){
+					else if (isQueen(2) && !isFace(0) && center.size() > 2){
+						for (int e = center.size()-1; e >= 0; e--){
 							(players.get(i-1)).addCard(center.remove(e));
 						}
 					}
-					else if (isKing(3) && !isFace(0)){
-						for (int e = center.size(); e > 0; e--){
+					else if (isKing(3) && !isFace(0) && center.size() > 3){
+						for (int e = center.size()-1; e >= 0; e--){
 							(players.get(i-1)).addCard(center.remove(e));
 						}
 					}
-					else if (isAce(4) && !isFace(0)){
-						for (int e = center.size(); e > 0; e--){
+					else if (isAce(4) && !isFace(0) && center.size() > 4){
+						for (int e = center.size()-1; e >= 0; e--){
 							(players.get(i-1)).addCard(center.remove(e));
 						}
 					}
@@ -310,7 +327,10 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 						}
 					}
 					else {
-						center.add((players.get(i)).burn());
+						Card c = (players.get(i)).burn();
+						if (c != null){
+							center.add(c);
+						}
 					}
 				}
 			}

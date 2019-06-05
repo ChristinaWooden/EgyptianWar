@@ -12,8 +12,15 @@ public class TheGame extends JFrame
   {
     super("EGYPTIAN WAR");
     Scanner k=new Scanner(System.in);
-    System.out.print("Enter number of players: ");
+    System.out.print("Enter number of players:: ");
     players=k.nextInt();
+    if (players == 1){
+      do{
+        System.out.println("Number of players must be greater than 1.  Enter number of players:: ");
+        players=k.nextInt();
+      }while(players == 1);
+    }
+
     setSize(WIDTH,HEIGHT);
     EgyptianWar game = new EgyptianWar(WIDTH, HEIGHT, players);
     ((Component)game).setFocusable(true);

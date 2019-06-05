@@ -38,6 +38,9 @@ public class Player{
 	}
 
 	public int getPlace(){
+		if (hand.size() > 0){
+			return 0;
+		}
 		return place;
 	}
 
@@ -72,9 +75,9 @@ public class Player{
 	//player will still be able to slap into the game if they have no cards left
 	public Card placeCard(){
 		if (hand.size() > 0){
-			recentCard = hand.get(hand.size()-1);
-			place = getPlace() -1;
-			return hand.remove(hand.size()-1);
+			recentCard = hand.get(0);
+			place = getPlace() - 1;
+			return hand.remove(0);
 		}
 		return null;
 	}
@@ -86,7 +89,7 @@ public class Player{
 
 	public Card burn(){
 		if (hand.size() > 0){
-			return hand.remove(hand.size()-1);
+			return hand.remove(0);
 		}
 		return null;
 	}

@@ -65,6 +65,7 @@ public class Card
 
 
   // modifiers
+
   public void setSuit(String s){
   	suit = s;
   }
@@ -81,6 +82,14 @@ public class Card
   //accessors
   public String getSuit(){
   	return suit;
+  }
+
+  public String getPath(){
+  	return path;
+  }
+
+  public Image getImage(){
+  	return image;
   }
 
   public int getFace(){

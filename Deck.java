@@ -58,7 +58,10 @@ public class Deck
   }
 
   public Card remove(int i){
-    return stackOfCards.remove(i);
+    if (i < stackOfCards.size())
+      return stackOfCards.remove(i);
+    else
+      return null;
   }
 
   public String toString()
