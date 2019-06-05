@@ -35,6 +35,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		//instance variables
 		deck = new Deck();
 		deck.shuffle();
+		System.out.println(deck.nextCard());
 		center = new ArrayList<Card>();
 		keys = new boolean[3];
 		players = new ArrayList<Player>();
@@ -52,15 +53,16 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		//deal cards to each player
 		do{
 			for (int i = 0; i < players.size(); i++){
-				(players.get(i)).addCard((deck.remove(0)));
+				Card c = deck.remove(0);
+				(players.get(i)).addCard(c);
 			}
 		}while(deck.size() > 0);
 
 
 		//other setup things
 		setVisible(true);  
-		new Thread(this).start();
 		this.addKeyListener(this);
+		new Thread(this).start();
 
 	}
 
@@ -68,12 +70,15 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 	{
 		if (e.getKeyCode()==KeyEvent.VK_1){
 			keys[0]=true;
+			System.out.println("Card plced");
 		}
 		if(e.getKeyCode()==KeyEvent.VK_SPACE){
 			keys[1]=true;
+			System.out.println("Card burnt");
 		}
 		if(e.getKeyCode()==KeyEvent.VK_N){
 			keys[2]=true;
+			System.out.println("n pressed");
 		}
 		repaint();
 	}
@@ -216,7 +221,16 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		center.add(new Card());
 		center.add(new Card());
 		center.add(new Card());
-		//center.add(0, (players.get(0)).placeCard());
+
+		//testing placeCard
+		Card c = (players.get(0)).placeCard(); //placeCard method works and returns a card, but does not show up in graphics...
+		System.out.println(c);
+		center.add(0,c);
+
+		//testing burn
+		Card c2 = (players.get(0)).burn();
+		System.out.println(c2);
+		center.add(0, c2);
 
 		graphToBack.setColor(Color.WHITE);
 		graphToBack.fillRect(150, 10, 500, 150);
@@ -278,6 +292,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 				//add a card while you are still supposed to
 				do {
 					if ((players.get(i)).getHandSize() > 0 && keys[0]){
+						System.out.println("card placed");
 						Card c = (players.get(i)).placeCard();
 						if (c != null){
 							center.add(0, c);
@@ -349,6 +364,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 			}
 		}catch(Exception e)
 		{
+			System.out.println("Exception caught ????");
 		}
   	}
 
