@@ -10,7 +10,6 @@ CLASSES = \
 	Player.java \
 	Deck.java \
 	DeckTestOne.java \
-	DealerTestOne.java \
 	PlayerTestOne.java \
 	Mahogany.java \
 	GameClient.java \
