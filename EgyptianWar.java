@@ -61,13 +61,14 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 
 		//other setup things
 		setVisible(true);  
-		this.addKeyListener(this);
 		new Thread(this).start();
+		addKeyListener(this);
 
 	}
 
 	public void keyPressed(KeyEvent e)
-	{
+	{ 
+		System.out.println("keyPressed method");
 		if (e.getKeyCode()==KeyEvent.VK_1){
 			keys[0]=true;
 			System.out.println("Card plced");
@@ -84,6 +85,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 	}
 	
 	public void keyReleased(KeyEvent e)	{
+		System.out.println("key released");
 		if (e.getKeyCode()==KeyEvent.VK_1){
 			keys[0]=false;
 		}
