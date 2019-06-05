@@ -14,19 +14,19 @@ public class TheGame extends JFrame
     Scanner k=new Scanner(System.in);
     System.out.print("Enter number of players:: ");
     players=k.nextInt();
-    if (players == 1){
-      do{
-        System.out.println("Number of players must be greater than 1.  Enter number of players:: ");
-        players=k.nextInt();
-      }while(players == 1);
-    }
+    //if (players == 1){
+      //do{
+        //System.out.println("Number of players must be greater than 1.  Enter number of players:: ");
+        //players=k.nextInt();
+      //}while(players == 1);
+    //}
 
     setSize(WIDTH,HEIGHT);
     EgyptianWar game = new EgyptianWar(WIDTH, HEIGHT, players);
     ((Component)game).setFocusable(true);
     getContentPane().add(game);
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setVisible(true);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
 
   public static void main(String args[])
