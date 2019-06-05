@@ -97,7 +97,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 	{
 		if (e.getKeyCode()==KeyEvent.VK_1){
 			keys[0]=false;
-			do {
+			/*do {
 					if ((players.get(i)).getHandSize() > 0 && keys[0]){
 						System.out.println("card placed");
 						Card c = (players.get(i)).placeCard();
@@ -105,7 +105,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 							center.add(0, c);
 						}
 					}
-				}while ((players.get(i)).getPlace() > 0);
+				}while ((players.get(i)).getPlace() > 0);*/
 		}
 		if(e.getKeyCode()==KeyEvent.VK_SPACE){
 			keys[1]=false;
@@ -286,7 +286,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 				}
 
 				//add a card while you are still supposed to
-				/*do {
+				do {
 					if ((players.get(i)).getHandSize() > 0 && keys[0]){
 						System.out.println("card placed");
 						Card c = (players.get(i)).placeCard();
@@ -294,7 +294,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 							center.add(0, c);
 						}
 					}
-				}while ((players.get(i)).getPlace() > 0);*/
+				}while ((players.get(i)).getPlace() > 0);
 
 
 				if (isQueen(0) || isJack(0) || isKing(0) || isAce(0)){
