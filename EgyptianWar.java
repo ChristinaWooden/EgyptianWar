@@ -218,19 +218,18 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		center.add(new Card());
 		center.add(new Card());
 		center.add(new Card());
-		center.add(new Card());
-		center.add(new Card());
-		center.add(new Card());
 
 		//testing placeCard
 		Card c = (players.get(0)).placeCard(); //placeCard method works and returns a card, but does not show up in graphics...
 		System.out.println(c);
 		center.add(0,c);
+		System.out.println(c.getPath());
 
 		//testing burn
 		Card c2 = (players.get(0)).burn();
 		System.out.println(c2);
 		center.add(0, c2);
+		System.out.println(c2.getPath());
 
 		graphToBack.setColor(Color.WHITE);
 		graphToBack.fillRect(150, 10, 500, 150);
@@ -255,7 +254,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 	}
 
 	public void drawCenter(Graphics graphToBack){
-		upperDisplay=Math.min(4,center.size()-1);
+		upperDisplay=Math.min(4,center.size());
 		if(center.size()>0){
 			for(int i=upperDisplay-1;i>=0;i--){
 		  		(center.get(i)).draw(graphToBack, (150+((upperDisplay - i)*69)), 200, 100, 150); 
@@ -312,17 +311,17 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 							(players.get(i-1)).addCard(center.remove(e));
 						}
 					}
-					else if (isQueen(2) && !isFace(0) && center.size() > 2){
+					else if (center.size() > 2 && isQueen(2) && !isFace(0)){
 						for (int e = center.size()-1; e >= 0; e--){
 							(players.get(i-1)).addCard(center.remove(e));
 						}
 					}
-					else if (isKing(3) && !isFace(0) && center.size() > 3){
+					else if (center.size() > 3 && !isFace(0) && isKing(3)){
 						for (int e = center.size()-1; e >= 0; e--){
 							(players.get(i-1)).addCard(center.remove(e));
 						}
 					}
-					else if (isAce(4) && !isFace(0) && center.size() > 4){
+					else if (center.size() > 4 && isAce(4) && !isFace(0)){
 						for (int e = center.size()-1; e >= 0; e--){
 							(players.get(i-1)).addCard(center.remove(e));
 						}
