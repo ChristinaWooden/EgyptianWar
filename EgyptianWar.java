@@ -49,11 +49,11 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		}
 
 		//deal cards to each player
-		/*do{
+		do{
 			for (int i = 0; i < players.size(); i++){
 				(players.get(i)).addCard((deck.remove(0)));
 			}
-		}while(deck.size() > 0);*/
+		}while(deck.size() > 0);
 
 
 		//other setup things
@@ -77,8 +77,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		repaint();
 	}
 	
-	public void keyReleased(KeyEvent e)
-	{
+	public void keyReleased(KeyEvent e)	{
 		if (e.getKeyCode()==KeyEvent.VK_1){
 			keys[0]=false;
 		}
@@ -211,20 +210,19 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		twoDGraph.drawImage(image, 0, 0, null);*/
 		mahogany.draw(graphToBack);
 		center.add(new Card());
-		center.add(new Card());
-		center.add(new Card());
+		center.add((players.get(0)).burn());
 		upperDisplay=Math.min(4,center.size()-1);
 		if(center.size()>0){
-			for(int i=upperDisplay;i>=0;i--){
+			for(int i=0;i<=upperDisplay;i++){
 		  		(center.get(i)).draw(graphToBack, (150+((upperDisplay - i)*69)), 200, 100, 150); 
 			}
 		}
+
 		graphToBack.setColor(Color.WHITE);
 		graphToBack.fillRect(150, 10, 500, 150);
 		graphToBack.setColor(Color.BLACK);
 		graphToBack.drawString("EGYPTIAN WAR", 350, 25);
 
-		//long ass code block that basically makes a player place the right amount of cards
 		do{
 			twoDGraph.drawImage(back, null, 0, 0);
 			playGame();
@@ -232,7 +230,6 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 
 
 		//twoDGraph.drawImage(back, null, 0, 0);
-
 
 
 	}
@@ -268,6 +265,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 					if (keys[0]){
 						(players.get(i)).placeCard();
 					}
+					repaint();
 				}while ((players.get(i)).getPlace() > 0);
 
 
@@ -306,7 +304,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 			//code to check if slap is legal
 			for (int i = 0; i < players.size(); i++){
 				if (keys[1]){
-					if (isDouble() || isSandwich()){
+					if (isDouble() || isSandwich() || isGay()){
 						for (int e = 0; e < center.size(); e++){
 							(players.get(i)).addCard(center.remove(e));
 						}
