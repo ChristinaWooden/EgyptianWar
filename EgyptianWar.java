@@ -210,19 +210,34 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
     		}
 		twoDGraph.drawImage(image, 0, 0, null);*/
 		mahogany.draw(graphToBack);
-		center.add(deck.nextCard());
+		center.add(new Card());
+		center.add(new Card());
+		center.add(new Card());
 		upperDisplay=Math.min(4,center.size()-1);
 		if(center.size()>0){
 			for(int i=upperDisplay;i>=0;i--){
-		  		(center.get(i)).draw(graphToBack,(10+(upperDisplay-i)*91),10,365,485);
+		  		(center.get(i)).draw(graphToBack, (150+((upperDisplay - i)*69)), 200, 100, 150); 
 			}
 		}
 		graphToBack.setColor(Color.WHITE);
 		graphToBack.fillRect(150, 10, 500, 150);
-		twoDGraph.drawImage(back, null, 0, 0);
+		graphToBack.setColor(Color.BLACK);
+		graphToBack.drawString("EGYPTIAN WAR", 350, 25);
 
 		//long ass code block that basically makes a player place the right amount of cards
 		do{
+			twoDGraph.drawImage(back, null, 0, 0);
+			playGame();
+		}while(!gameOver());
+
+
+		//twoDGraph.drawImage(back, null, 0, 0);
+
+
+
+	}
+
+	public void playGame(){
 
 			for (int i = 0; i < players.size(); i++){
 
@@ -301,15 +316,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 					}
 				}
 			}
-
-
-
-
-		}while(!gameOver());
-
-
-
-	}
+		}
 	
 	
 	public void run()
@@ -327,6 +334,4 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		}
   	}
 
-
-
-}
+  }
