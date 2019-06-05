@@ -227,21 +227,6 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
     		}
 		twoDGraph.drawImage(image, 0, 0, null);*/
 		mahogany.draw(graphToBack);
-		center.add(new Card());
-		center.add(new Card());
-		center.add(new Card());
-
-		//testing placeCard
-		Card c = (players.get(0)).placeCard(); //placeCard method works and returns a card, but does not show up in graphics...
-		System.out.println(c);
-		center.add(0,c);
-		System.out.println(c.getPath());
-
-		//testing burn
-		Card c2 = (players.get(0)).burn();
-		System.out.println(c2);
-		center.add(0, c2);
-		System.out.println(c2.getPath());
 
 		graphToBack.setColor(Color.WHITE);
 		graphToBack.fillRect(150, 10, 500, 150);
