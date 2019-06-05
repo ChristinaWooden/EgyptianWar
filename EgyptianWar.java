@@ -36,7 +36,6 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		//instance variables
 		deck = new Deck();
 		deck.shuffle();
-		System.out.println(deck.nextCard());
 		center = new ArrayList<Card>();
 		keys = new boolean[3];
 		players = new ArrayList<Player>();
@@ -80,7 +79,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 	{
 		if (e.getKeyCode()==KeyEvent.VK_1){
 			keys[0]=true;
-			System.out.println("Card plced");
+			System.out.println("keys[0] is true");
 		}
 		if(e.getKeyCode()==KeyEvent.VK_SPACE){
 			keys[1]=true;
@@ -223,17 +222,6 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		if(back==null)
 			back = (BufferedImage)(createImage(getWidth(),getHeight()));
 		Graphics graphToBack = back.createGraphics();
-		//add methods here
-		/*try
-    		{
-      			URL url = getClass().getResource("images/mahogany.jpg");
-      			image = ImageIO.read(url);
-    		}
-    		catch(Exception e)
-    		{
-      
-    		}
-		twoDGraph.drawImage(image, 0, 0, null);*/
 		mahogany.draw(graphToBack);
 
 		graphToBack.setColor(Color.WHITE);
@@ -241,12 +229,8 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		graphToBack.setColor(Color.BLACK);
 		graphToBack.drawString("EGYPTIAN WAR", 350, 25);
 		drawCenter(graphToBack);
-		//twoDGraph.drawImage(image,0,0,width,height,null); when mahogany integrated
 		twoDGraph.drawImage(back, null, 0, 0);
 		playGame();
-		//if (gameOver()){
-		//	System.out.println("Game over");
-		//}
 
 	}
 
@@ -286,15 +270,22 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 				}
 
 				//add a card while you are still supposed to
+				int place = (players.get(i)).getPlace();
+				
 				do {
-					if ((players.get(i)).getHandSize() > 0 && keys[0]){
-						System.out.println("card placed");
+
+					if (keys[0] && (players.get(i)).getHandSize() > 0){
 						Card c = (players.get(i)).placeCard();
 						if (c != null){
+							System.out.println("card placed from EgyptianWar");
 							center.add(0, c);
+							(players.get(i)).setPlace((players.get(i)).getPlace() - 1);
+							System.out.println("place is decremented");
 						}
+						System.out.println("place value:: " + place);
 					}
-				}while ((players.get(i)).getPlace() > 0);
+
+				}while (place > 0);
 
 
 				if (isQueen(0) || isJack(0) || isKing(0) || isAce(0)){

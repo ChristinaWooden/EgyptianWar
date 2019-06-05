@@ -11,7 +11,7 @@ public class Player{
 	public Player(){
 		hand = new ArrayList<Card>();
 		wins = 0;
-		place = 0;
+		place = 1;
 	}
 
 	public void addCard(Card c){
@@ -38,10 +38,10 @@ public class Player{
 	}
 
 	public int getPlace(){
-		if (hand.size() > 0){
-			return 0;
+		if (hand.size() < 0){
+			return place;
 		}
-		return place;
+		return 0;
 	}
 
 	public int mustPlace(int face){
@@ -65,18 +65,18 @@ public class Player{
 
 		
 	//call this method only after you have called placeCard and mustPlace, because the method counts on the recentCard being updated to what was just placed
-	public void payMoreCards(){
+	/*public void payMoreCards(){
 		if (recentCard.isRoyal()){
 			place = 0;
 		}
-	}
+	}*/
 	
 	//during each play, a player will place down the "last" card in their ArrayList in the center pile.  The returned Card will be added to the center deck.
 	//player will still be able to slap into the game if they have no cards left
 	public Card placeCard(){
 		if (hand.size() > 0){
+			System.out.println("card placed from player method");
 			recentCard = hand.get(0);
-			place = getPlace() - 1;
 			return hand.remove(0);
 		}
 		return null;
