@@ -23,7 +23,8 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 	private boolean[] keys;
 	private BufferedImage back;
 	private ArrayList<Player> players;
-	private Image image;
+	//private Image image; if mahogany needs to be integrated
+	private Mahogany mahogany;
 	private int width;
 	private int height;
 	private int upperDisplay;
@@ -41,7 +42,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		players = new ArrayList<Player>();
 		width=w;
 		height=h;
-		try
+		/*try
     		{
       			URL url = getClass().getResource("images/mahogany.jpg");
       			image = ImageIO.read(url);
@@ -49,7 +50,8 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
     		catch(Exception e)
     		{
       			//mahogany
-    		}
+    		}*/
+		mahogany=new Mahogany(w,h);
 
 		
 		//add players to game
@@ -223,6 +225,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
       
     		}
 		twoDGraph.drawImage(image, 0, 0, null);*/
+		mahogany.draw(graphToBack);
 		center.add(new Card());
 		center.add(new Card());
 		center.add(new Card());
@@ -244,7 +247,7 @@ public class EgyptianWar extends Canvas implements KeyListener, Runnable
 		graphToBack.setColor(Color.BLACK);
 		graphToBack.drawString("EGYPTIAN WAR", 350, 25);
 		drawCenter(graphToBack);
-		twoDGraph.drawImage(image,0,0,width,height,null);
+		//twoDGraph.drawImage(image,0,0,width,height,null); when mahogany integrated
 		twoDGraph.drawImage(back, null, 0, 0);
 		playGame();
 		//if (gameOver()){
