@@ -21,7 +21,7 @@ public class Card
   	suit = "SPADES";
   	face = 3;
     name=FACES[face]+suit;
-    path="images/"+name.toLowerCase()+".jpg";
+    path="images/"+name.toLowerCase()+".gif";
     try
     {
       URL url = getClass().getResource(path);
@@ -29,7 +29,7 @@ public class Card
     }
     catch(Exception e)
     {
-      
+      System.out.println("cannot find image");
     }
   }
  
@@ -37,15 +37,15 @@ public class Card
   	suit = s;
   	face = 3;
     name=FACES[face]+suit;
-    path="images/"+name.toLowerCase()+".jpg";    
+    path="images/"+name.toLowerCase()+".gif";    
     try
     {
-      URL url = getClass().getResource(name);
+      URL url = getClass().getResource(path);
       image = ImageIO.read(url);
     }
     catch(Exception e)
     {
-      
+      System.out.println("cannot find image");
     }
   }
 
@@ -53,32 +53,14 @@ public class Card
   	suit = "SPADES";
   	face = f;
     name=FACES[face]+suit;
-    path="images/"+name.toLowerCase()+".jpg";    
-    try
-    {
-      URL url = getClass().getResource(name);
-      image = ImageIO.read(url);
-    }
-    catch(Exception e)
-    {
-      
-    }
+    path="images/"+name.toLowerCase()+".gif";    
   }
 
   public Card(int f, String s){
   	suit = s;
   	face = f;
     name=FACES[face]+suit;
-    path="images/"+name.toLowerCase()+".jpg";    
-    try
-    {
-      URL url = getClass().getResource(name);
-      image = ImageIO.read(url);
-    }
-    catch(Exception e)
-    {
-      
-    }
+    path="images/"+name.toLowerCase()+".gif";    
   }
 
 
