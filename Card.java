@@ -22,15 +22,10 @@ public class Card
   	face = 3;
     name=FACES[face]+suit;
     path="images/"+name.toLowerCase()+".jpg";
-    try
-    {
+    try {
       URL url = getClass().getResource(path);
       image = ImageIO.read(url);
-    }
-    catch(Exception e)
-    {
-      
-    }
+    } catch(Exception e) {}
   }
  
   public Card(String s){
@@ -38,15 +33,10 @@ public class Card
   	face = 3;
     name=FACES[face]+suit;
     path="images/"+name.toLowerCase()+".jpg";    
-    try
-    {
+    try {
       URL url = getClass().getResource(name);
       image = ImageIO.read(url);
-    }
-    catch(Exception e)
-    {
-      
-    }
+    } catch(Exception e) {}
   }
 
   public Card(int f){
@@ -54,15 +44,10 @@ public class Card
   	face = f;
     name=FACES[face]+suit;
     path="images/"+name.toLowerCase()+".jpg";    
-    try
-    {
+    try {
       URL url = getClass().getResource(name);
       image = ImageIO.read(url);
-    }
-    catch(Exception e)
-    {
-      
-    }
+    } catch(Exception e) {}
   }
 
   public Card(int f, String s){
@@ -70,15 +55,10 @@ public class Card
   	face = f;
     name=FACES[face]+suit;
     path="images/"+name.toLowerCase()+".jpg";    
-    try
-    {
+    try {
       URL url = getClass().getResource(name);
       image = ImageIO.read(url);
-    }
-    catch(Exception e)
-    {
-      
-    }
+    } catch(Exception e) {}
   }
 
 
@@ -121,9 +101,7 @@ public class Card
   }
   
   //toString
-
   public String toString(){
      return FACES[face] + " of " + getSuit();  	
   }
-        
 }
