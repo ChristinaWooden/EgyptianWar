@@ -7,7 +7,7 @@ import javax.imageio.ImageIO;
 
 public class Card
 {
-  public static final String FACES[] = {"ACE","TWO","THREE","FOUR","FIVE","SIX","SEVEN","EIGHT","NINE","TEN","JACK","QUEEN","KING"};
+  public static final String FACES[] = { "ACE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "EIGHT", "NINE", "TEN", "JACK", "QUEEN", "KING" };
 
   private String suit;
   private int face;
@@ -19,17 +19,17 @@ public class Card
   public Card(){
     String name="";
   	suit = "SPADES";
-  	face = 3;
+  	face = 4;
     name=FACES[face]+suit;
-    path="images/"+name.toLowerCase()+".jpg";
+    path="images/"+name.toLowerCase()+".gif";
     try
     {
-      URL url = getClass().getResource(name);
+      URL url = getClass().getResource(path);
       image = ImageIO.read(url);
     }
     catch(Exception e)
     {
-      
+      System.out.println("cannot find image");
     }
   }
  
@@ -37,15 +37,15 @@ public class Card
   	suit = s;
   	face = 3;
     name=FACES[face]+suit;
-    path="images/"+name.toLowerCase()+".jpg";    
+    path="images/"+name.toLowerCase()+".gif";    
     try
     {
-      URL url = getClass().getResource(name);
+      URL url = getClass().getResource(path);
       image = ImageIO.read(url);
     }
     catch(Exception e)
     {
-      
+      System.out.println("cannot find image");
     }
   }
 
@@ -53,15 +53,15 @@ public class Card
   	suit = "SPADES";
   	face = f;
     name=FACES[face]+suit;
-    path="images/"+name.toLowerCase()+".jpg";    
+    path="images/"+name.toLowerCase()+".gif";    
     try
     {
-      URL url = getClass().getResource(name);
+      URL url = getClass().getResource(path);
       image = ImageIO.read(url);
     }
     catch(Exception e)
     {
-      
+      System.out.println("cannot find image");
     }
   }
 
@@ -69,36 +69,45 @@ public class Card
   	suit = s;
   	face = f;
     name=FACES[face]+suit;
-    path="images/"+name.toLowerCase()+".jpg";    
+    path="images/"+name.toLowerCase()+".gif";
     try
     {
-      URL url = getClass().getResource(name);
+      URL url = getClass().getResource(path);
       image = ImageIO.read(url);
     }
     catch(Exception e)
     {
-      
-    }
+      System.out.println("cannot find image");
+    }    
   }
 
 
   // modifiers
+
   public void setSuit(String s){
   	suit = s;
   }
 
   public void setFace(int f){
   	face = f;
-  }
+
+   } 
 
   public boolean isRoyal(){
   	return (getFace() == 0 || getFace() == 10 || getFace() == 11 || getFace() == 12);
   }
- 
 
   //accessors
   public String getSuit(){
   	return suit;
+  }
+
+  public String getPath(){
+  	return path;
+  }
+
+  public Image getImage(){
+  	return image;
   }
 
   public int getFace(){
@@ -115,15 +124,11 @@ public class Card
     return false;
   }
 
-  public void draw(Graphics window,int x,int y,int w,int h)
-  {
-    window.drawImage(image,x,y,w,h,null);
+  public void draw(Graphics window, int x, int y, int w, int h) {
+    window.drawImage(image, x, y, w, h,null);
   }
   
-  //toString
-
   public String toString(){
-     return FACES[face] + " of " + getSuit();  	
+      return FACES[face] + " of " + getSuit();
   }
-        
 }
