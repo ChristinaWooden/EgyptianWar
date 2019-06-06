@@ -15,66 +15,21 @@ public class Card
   private String path;
   private Image image;
 
-  //constructors
-  public Card(){
-    String name="";
-  	suit = "SPADES";
-  	face = 3;
-    name=FACES[face]+suit;
-    path="images/"+name.toLowerCase()+".jpg";
-    try {
-      URL url = getClass().getResource(path);
-      image = ImageIO.read(url);
-    } catch(Exception e) {}
-  }
- 
-  public Card(String s){
-  	suit = s;
-  	face = 3;
-    name=FACES[face]+suit;
-    path="images/"+name.toLowerCase()+".jpg";    
-    try {
-      URL url = getClass().getResource(name);
-      image = ImageIO.read(url);
-    } catch(Exception e) {}
-  }
-
-  public Card(int f){
-  	suit = "SPADES";
-  	face = f;
-    name=FACES[face]+suit;
-    path="images/"+name.toLowerCase()+".jpg";    
-    try {
-      URL url = getClass().getResource(name);
-      image = ImageIO.read(url);
-    } catch(Exception e) {}
-  }
-
   public Card(int f, String s){
   	suit = s;
   	face = f;
-    name=FACES[face]+suit;
-    path="images/"+name.toLowerCase()+".jpg";    
+    name = FACES[face]+suit;
+
+    path = "images/"+name.toLowerCase()+".jpg";
     try {
       URL url = getClass().getResource(name);
       image = ImageIO.read(url);
     } catch(Exception e) {}
-  }
-
-
-  // modifiers
-  public void setSuit(String s){
-  	suit = s;
-  }
-
-  public void setFace(int f){
-  	face = f;
   }
 
   public boolean isRoyal(){
   	return (getFace() == 0 || getFace() == 10 || getFace() == 11 || getFace() == 12);
   }
- 
 
   //accessors
   public String getSuit(){
@@ -95,6 +50,7 @@ public class Card
     return false;
   }
 
+  //for client
   public void draw(Graphics window,int x,int y,int w,int h)
   {
     window.drawImage(image,x,y,w,h,null);

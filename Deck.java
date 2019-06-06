@@ -13,14 +13,13 @@ public class Deck {
 
   public Deck () {
     //initialize data - stackOfCards - topCardIndex
-    stackOfCards = new ArrayList<Card>();         
-    Card c1 = new Card();   
-    topCardIndex = NUMCARDS -1 ;
+    stackOfCards = new ArrayList<Card>();
+    topCardIndex = NUMCARDS -1;
                 
-    for (int s = 0; s < 4; s++) {
-    	for (int f = 0; f < 13; f++) {
-    		c1 = new Card(f,SUITS[s]);
-    		stackOfCards.add(c1);
+    for (int s = 0; s < 4; s++){
+    	for (int f = 0; f < 13; f++){
+    		Card card = new Card(f,SUITS[s]);
+    		stackOfCards.add(card);
     	}
     }
   }

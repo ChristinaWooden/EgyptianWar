@@ -196,12 +196,6 @@ class EgyptianWar {
 //        if(back==null)
 //            back = (BufferedImage)(createImage(getWidth(),getHeight()));
 //        Graphics graphToBack = back.createGraphics();
-//        //add methods here
-//		/*try {
-//      			URL url = getClass().getResource("images/mahogany.jpg");
-//      			image = ImageIO.read(url);
-//    		} catch(Exception e){}
-//		twoDGraph.drawImage(image, 0, 0, null);*/
 ////        mahogany.draw(graphToBack);
 //        center.add(deck.nextCard());
 //        upperDisplay=Math.min(4,center.size()-1);
