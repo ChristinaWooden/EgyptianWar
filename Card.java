@@ -19,7 +19,7 @@ public class Card
   public Card(){
     String name="";
   	suit = "SPADES";
-  	face = 3;
+  	face = 4;
     name=FACES[face]+suit;
     path="images/"+name.toLowerCase()+".gif";
     try
@@ -54,13 +54,31 @@ public class Card
   	face = f;
     name=FACES[face]+suit;
     path="images/"+name.toLowerCase()+".gif";    
+    try
+    {
+      URL url = getClass().getResource(path);
+      image = ImageIO.read(url);
+    }
+    catch(Exception e)
+    {
+      System.out.println("cannot find image");
+    }
   }
 
   public Card(int f, String s){
   	suit = s;
   	face = f;
     name=FACES[face]+suit;
-    path="images/"+name.toLowerCase()+".gif";    
+    path="images/"+name.toLowerCase()+".gif";
+    try
+    {
+      URL url = getClass().getResource(path);
+      image = ImageIO.read(url);
+    }
+    catch(Exception e)
+    {
+      System.out.println("cannot find image");
+    }    
   }
 
 
