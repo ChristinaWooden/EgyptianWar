@@ -286,7 +286,7 @@ class EgyptianWar {
         //code to check if slap is legal
         for (int i = 0; i < players.size(); i++){
             if (keys[1]){
-                if (isDouble() || isSandwich() || isGay()){
+                if (isDouble() || isSandwich()){
                     for (int e = 0; e < center.size(); e++){
                         (players.get(i)).addCard(center.remove(e));
                     }

@@ -54,6 +54,7 @@ public class EgyptianWarClient extends JFrame  {
         } finally {
             socket.close();
         }
+    }
 
 //        public void start() {
 //        //other setup things
@@ -80,7 +81,7 @@ public class EgyptianWarClient extends JFrame  {
             graphToBack.drawString("EGYPTIAN WAR", 350, 25);
             drawCenter(graphToBack);
             twoDGraph.drawImage(back, null, 0, 0);
-            playGame();
+//            playGame();
 
         }
 
