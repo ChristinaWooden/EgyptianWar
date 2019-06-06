@@ -29,7 +29,7 @@ class EgyptianWar {
     private ArrayList<Card> center;
 
     Player player;
-
+    
     public EgyptianWar()
     {
         deck = new Deck();
@@ -37,9 +37,17 @@ class EgyptianWar {
         center = new ArrayList<Card>();
     }
 
+    public synchronized void move(Player plr) {
+        if (plr != player) {
+            throw new IllegalStateException("Not your turn");
+        } else if(player.opponent == null) {
+            throw new IllegalStateException("You don't have an opponent yet");
+        }
+    }
+    
     public boolean isDouble(){
         if (center.size() >= 2){
-            if (center.get(0).getFace()==center.get(1).getFace()&&center.get(0).getFace()<10&&center.get(1).getFace()<10) {
+            if (center.get(0).getFace()==center.get(1).getFace()) {
                 return true;
             }
         }
@@ -141,38 +149,22 @@ class EgyptianWar {
 //            }
 //
 //            //if player n does not play a face card after player n-1 does, player n-1 will gain the cards
-//            if (i > 0 && center.size() > 1){
-//                if (isJack(1) && !isFace(0)){
+//            if (center.size() > 1){
+//                if (center.get(1).isJack() && !placed.isFace(0)){
+//                    for (int e = center.size()-1; e >= 0; e--){
+//                        (opponent.get(i-1)).addCard(center.remove(e));
+//                    }
+//                } else if (center.get(2).isQueen() && !placed.isFace(0)){
+//                    for (int e = center.size()-1; e >= 0; e--){
+//                        (opponent.get(i-1)).addCard(center.remove(e));
+//                    }
+//                } else if (center.get(3).isKing() > 3 && !placed.isFace(0)){
 //                    for (int e = center.size()-1; e >= 0; e--){
 //                        (players.get(i-1)).addCard(center.remove(e));
 //                    }
-//                } else if (center.size() > 2 && isQueen(2) && !isFace(0)){
+//                } else if (center.get(4).isAce() && !placed.isFace(0)){
 //                    for (int e = center.size()-1; e >= 0; e--){
 //                        (players.get(i-1)).addCard(center.remove(e));
-//                    }
-//                } else if (center.size() > 3 && !isFace(0) && isKing(3)){
-//                    for (int e = center.size()-1; e >= 0; e--){
-//                        (players.get(i-1)).addCard(center.remove(e));
-//                    }
-//                } else if (center.size() > 4 && isAce(4) && !isFace(0)){
-//                    for (int e = center.size()-1; e >= 0; e--){
-//                        (players.get(i-1)).addCard(center.remove(e));
-//                    }
-//                }
-//            }
-//        }
-//
-//        //code to check if slap is legal
-//        for (int i = 0; i < players.size(); i++){
-//            if (keys[1]){
-//                if (isDouble() || isSandwich()){
-//                    for (int e = 0; e < center.size(); e++){
-//                        (players.get(i)).addCard(center.remove(e));
-//                    }
-//                } else {
-//                    Card c = (players.get(i)).burn();
-//                    if (c != null){
-//                        center.add(c);
 //                    }
 //                }
 //            }
@@ -210,6 +202,15 @@ class EgyptianWar {
             hand.add(c);
         }
 
+        //during each play, a player will place down the "last" card in their ArrayList in the center pile.  The returned Card will be added to the center deck.
+        //player will still be able to slap into the game if they have no cards left
+        public Card placeCard(){
+            System.out.println("card placed from player method");
+            recentCard = hand.get(0);
+            place = getPlace() - 1;
+            return hand.remove(0);
+        }
+        
         public int getHandSize(){
             return hand.size();
         }
@@ -265,6 +266,7 @@ class EgyptianWar {
 
     private void processAction(String action) {
         try {
+            move(player);
             output.println("VALID_ACTION");
             opponent.output.println("OPPONENT_ACTION " + action);
             if (gameOver()) {
@@ -273,9 +275,23 @@ class EgyptianWar {
             } else if (action.equals("PLACE_CARD")) {
                 System.out.println("Placing a card omg woo!");
                 // TODO: IMPLEMENT
+                Card placed = player.placeCard();
+                System.out.println("Card placed!");
+//              if(placed
             } else if (action.equals("SLAP")) {
                 System.out.println("Slap chop");
                 // TODO: IMPLEMENT
+//                if (isDouble() || isSandwich()){
+//                    for (int e = 0; e < center.size(); e++){
+//                        player.addCard(center.remove(e));
+//                    }
+//                } else {
+//                    Card c = (player.burn();
+//                    System.out.println("You burned!!");
+//                    if (c != null){
+//                        center.add(c);
+//                    }
+//                }
             }
         } catch (Exception e) {
             output.println("MESSAGE " + e.getMessage());
@@ -315,18 +331,6 @@ class EgyptianWar {
                 place = 0;
             }
         }*/
-
-        //during each play, a player will place down the "last" card in their ArrayList in the center pile.  The returned Card will be added to the center deck.
-        //player will still be able to slap into the game if they have no cards left
-        public Card placeCard(){
-            if (hand.size() > 0){
-                System.out.println("card placed from player method");
-                recentCard = hand.get(0);
-                place = getPlace() - 1;
-                return hand.remove(0);
-            }
-            return null;
-        }
 
         public boolean slap(){
             return true;
