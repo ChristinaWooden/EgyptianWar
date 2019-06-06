@@ -18,13 +18,8 @@ public class Card
   public Card(int f, String s){
   	suit = s;
   	face = f;
-    name = FACES[face]+suit;
-
-    path = "images/"+name.toLowerCase()+".jpg";
-    try {
-      URL url = getClass().getResource(name);
-      image = ImageIO.read(url);
-    } catch(Exception e) {}
+    name=FACES[face]+suit;
+    path="images/"+name.toLowerCase()+".gif";    
   }
 
   public boolean isRoyal(){
@@ -34,6 +29,14 @@ public class Card
   //accessors
   public String getSuit(){
   	return suit;
+  }
+
+  public String getPath(){
+  	return path;
+  }
+
+  public Image getImage(){
+  	return image;
   }
 
   public int getFace(){

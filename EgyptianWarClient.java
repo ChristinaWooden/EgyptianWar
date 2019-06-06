@@ -19,6 +19,7 @@ public class EgyptianWarClient extends JFrame  {
     private Mahogany mahogany;
     private BufferedImage back;
     private int upperDisplay;
+    private boolean[] keys;
 
     private Socket socket;
     private Scanner in;
@@ -28,7 +29,10 @@ public class EgyptianWarClient extends JFrame  {
         socket = new Socket(serverAddress, PORT);
         in = new Scanner(socket.getInputStream());
         out = new PrintWriter(socket.getOutputStream(), true);
-        mahogany=new Mahogany(WIDTH,HEIGHT);
+        keys = new boolean[3];
+        mahogany = new Mahogany(WIDTH,HEIGHT);
+        center = new ArrayList<Card>();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public void play() throws Exception {
@@ -58,14 +62,15 @@ public class EgyptianWarClient extends JFrame  {
 //        this.addKeyListener(this);
 //        }
 
-        public void update (Graphics window){
-            paint(window);
-        }
+//        public void update(Graphics window) {
+//            paint(window);
+//        }
 
-        public void paint(Graphics window){
-            Graphics2D twoDGraph = (Graphics2D) window;
-            if (back == null)
-                back = (BufferedImage) (createImage(getWidth(), getHeight()));
+        public void paint(Graphics window)
+        {
+            Graphics2D twoDGraph=(Graphics2D)window;
+            if(back==null)
+                back = (BufferedImage)(createImage(getWidth(),getHeight()));
             Graphics graphToBack = back.createGraphics();
             mahogany.draw(graphToBack);
 
@@ -75,49 +80,63 @@ public class EgyptianWarClient extends JFrame  {
             graphToBack.drawString("EGYPTIAN WAR", 350, 25);
             drawCenter(graphToBack);
             twoDGraph.drawImage(back, null, 0, 0);
+            playGame();
+
         }
 
         public void drawCenter(Graphics graphToBack){
-        upperDisplay=Math.min(4,center.size());
-        if(center.size()>0){
-            for(int i=upperDisplay-1;i>=0;i--){
-                (center.get(i)).draw(graphToBack, (150+((upperDisplay - i)*69)), 200, 100, 150);
+            upperDisplay=Math.min(4,center.size());
+            if(center.size()>0){
+                for(int i=upperDisplay-1;i>=0;i--){
+                    (center.get(i)).draw(graphToBack, (150+((upperDisplay - i)*69)), 200, 100, 150);
+                }
             }
         }
-    }
 
-        public void keyPressed (KeyEvent e){
-            if (e.getKeyCode() == KeyEvent.VK_1) {
-                keys[0] = true;
-            }
-            if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                keys[1] = true;
-            }
-            if (e.getKeyCode() == KeyEvent.VK_N) {
-                keys[2] = true;
-            }
-            repaint();
-        }
-
-        public void keyReleased (KeyEvent e)
+        public void keyPressed(KeyEvent e)
         {
-            if (e.getKeyCode() == KeyEvent.VK_1) {
-                keys[0] = false;
+            if (e.getKeyCode()==KeyEvent.VK_1){
+                keys[0]=true;
+                System.out.println("keys[0] is true");
             }
-            if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                keys[1] = false;
+            if(e.getKeyCode()==KeyEvent.VK_SPACE){
+                keys[1]=true;
+                System.out.println("Card burnt");
             }
-            if (e.getKeyCode() == KeyEvent.VK_N) {
-                keys[2] = false;
+            if(e.getKeyCode()==KeyEvent.VK_N){
+                keys[2]=true;
+                System.out.println("n pressed");
             }
             repaint();
         }
 
-//            public void keyTyped (KeyEvent e){
-//                //I put this here because it's always been here
-//            }
-
+        public void keyReleased(KeyEvent e)
+        {
+            if (e.getKeyCode()==KeyEvent.VK_1){
+                keys[0]=false;
+			/*do {
+					if ((players.get(i)).getHandSize() > 0 && keys[0]){
+						System.out.println("card placed");
+						Card c = (players.get(i)).placeCard();
+						if (c != null){
+							center.add(0, c);
+						}
+					}
+				}while ((players.get(i)).getPlace() > 0);*/
+            }
+            if(e.getKeyCode()==KeyEvent.VK_SPACE){
+                keys[1]=false;
+            }
+            if(e.getKeyCode()==KeyEvent.VK_N){
+                keys[2]=false;
+            }
+            repaint();
         }
+
+//        public void keyTyped(KeyEvent e)
+//        {
+//            //I put this here because it's always been here
+//        }
 
 
     public static void main(String[] args) throws Exception {
@@ -126,6 +145,10 @@ public class EgyptianWarClient extends JFrame  {
             return;
         }
         EgyptianWarClient client = new EgyptianWarClient(args[0]);
+        //other setup things
+//        setVisible(true);
+//        this.addKeyListener(this);
+//        new Thread(this).start();
         client.play();
     }
 }

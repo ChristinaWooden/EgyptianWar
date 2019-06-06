@@ -46,8 +46,11 @@ public class Deck {
     return stackOfCards.get(topCardIndex--);
   }
 
-  public Card remove(int i) {
-    return stackOfCards.remove(i);
+  public Card remove(int i){
+    if (i < stackOfCards.size())
+      return stackOfCards.remove(i);
+    else
+      return null;
   }
 
   public String toString() {
