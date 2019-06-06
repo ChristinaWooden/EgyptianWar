@@ -1,7 +1,3 @@
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -31,9 +27,8 @@ public class EgyptianWarServer {
 class EgyptianWar {
     private Deck deck;
     private ArrayList<Card> center;
-    private int playerCounter = 0;
 
-    Player currentPlayer;
+    Player player;
 
     public EgyptianWar()
     {
@@ -103,7 +98,7 @@ class EgyptianWar {
     }
 
     public boolean gameOver(){
-        return currentPlayer.getHandSize() == 0 || currentPlayer.opponent.getHandSize() == 0;
+        return player.getHandSize() == 0 || player.opponent.getHandSize() == 0;
     }
 
     public void playGame(){
@@ -184,6 +179,16 @@ class EgyptianWar {
 //        }
     }
 
+    public void dealCardsToPlayers() {
+        //deal cards to each player
+        while (deck.getSize() > 0 && deck.getSize() % 2 == 0) {
+            // player 1
+            player.addCard(deck.removeFromDeck(0));
+            // player 2
+            player.opponent.addCard(deck.removeFromDeck(0));
+        }
+    }
+
     public class Player implements Runnable {
         private int place; //number of cards the player must place at any given moment
         private ArrayList<Card> hand;
@@ -212,9 +217,13 @@ class EgyptianWar {
         public void run() {
             try {
                 setup();
+                processCommands();
             } catch(Exception e) {
                 e.printStackTrace();
             } finally {
+                if (opponent != null && opponent.output != null) {
+                    opponent.output.println("OTHER_PLAYER_LEFT");
+                }
                 try {
                     socket.close();
                 } catch (IOException e) {
@@ -225,25 +234,53 @@ class EgyptianWar {
         public void setup() throws IOException {
             input = new Scanner(socket.getInputStream());
             output = new PrintWriter(socket.getOutputStream(),true);
-            output.println("WELCOME PLAYER " + playerNumber);
 
-//            //deal cards to each player
-//            do{
-//                for (int i = 0; i < players.size(); i++){
-//                    Card c = deck.remove(0);
-//                    (players.get(i)).addCard(c);
-//                }
-//            } while(deck.size() > 0);
+            output.println("PLAYER_ASSIGNED " + playerNumber);
+            output.println("MESSAGE Welcome Player " + playerNumber + "!");
 
             if (playerNumber == 1) {
-                currentPlayer = this;
+                player = this;
                 output.println("MESSAGE Waiting for opponent to connect");
             } else {
-                opponent = currentPlayer;
+                opponent = player;
                 opponent.opponent = this;
                 opponent.output.println("MESSAGE Your move");
             }
+
+            if (player != null && opponent != null) {
+                dealCardsToPlayers();
+            }
         }
+
+        private void processCommands() {
+            while (input.hasNextLine()) {
+                var command = input.nextLine();
+                if (command.startsWith("QUIT")) {
+                    return;
+                } else if (command.startsWith("ACTION")) {
+                    processAction(command.substring(7));
+            }
+        }
+    }
+
+    private void processAction(String action) {
+        try {
+            output.println("VALID_ACTION");
+            opponent.output.println("OPPONENT_ACTION " + action);
+            if (gameOver()) {
+                output.println("VICTORY");
+                opponent.output.println("DEFEAT");
+            } else if (action.equals("PLACE_CARD")) {
+                System.out.println("Placing a card omg woo!");
+                // TODO: IMPLEMENT
+            } else if (action.equals("SLAP")) {
+                System.out.println("Slap chop");
+                // TODO: IMPLEMENT
+            }
+        } catch (Exception e) {
+            output.println("MESSAGE " + e.getMessage());
+        }
+    }
 
         //the card played before the player determines the number of cards each player must play
         public void setPlace(int p){

@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class EgyptianWarClient extends JFrame  {
+public class EgyptianWarClient extends JFrame implements KeyListener {
 
     private static final int PORT = 58901;
     private static final int WIDTH = 800;
@@ -23,24 +23,29 @@ public class EgyptianWarClient extends JFrame  {
     private Scanner in;
     private PrintWriter out;
 
+    private int playerNumber;
+
     public EgyptianWarClient(String serverAddress) throws Exception {
         socket = new Socket(serverAddress, PORT);
         in = new Scanner(socket.getInputStream());
         out = new PrintWriter(socket.getOutputStream(), true);
+
         keys = new boolean[3];
-        mahogany = new Mahogany(WIDTH,HEIGHT);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mahogany = new Mahogany(WIDTH, HEIGHT);
     }
 
     public void play() throws Exception {
         try {
             var response = in.nextLine();
             System.out.println(response);
+            playerNumber = Integer.parseInt(response.substring(16));
             while (in.hasNextLine()) {
                 response = in.nextLine();
-                if (response.startsWith("VALID_MOVE")) {
-                    System.out.println("Valid move made..." + response);
-                } else {
+                if (response.startsWith("VALID_ACTION")) {
+                    System.out.println("Valid action made... need to do something" + response);
+                } else if (response.startsWith("MESSAGE")) {
+                    System.out.println(response.substring(8));
+                } else if (response.equals("OTHER_PLAYER_LEFT")) {
                     System.out.println("QUITTING");
                     break;
                 }
@@ -64,11 +69,11 @@ public class EgyptianWarClient extends JFrame  {
 //            paint(window);
 //        }
 
-        public void paint(Graphics window)
-        {
-            Graphics2D twoDGraph=(Graphics2D)window;
-            if(back==null)
-                back = (BufferedImage)(createImage(getWidth(),getHeight()));
+        public void paint(Graphics window) {
+            Graphics2D twoDGraph = (Graphics2D)window;
+            if (back == null) {
+                back = (BufferedImage)(createImage(getWidth(), getHeight()));
+            }
             Graphics graphToBack = back.createGraphics();
             mahogany.draw(graphToBack);
 
@@ -78,8 +83,6 @@ public class EgyptianWarClient extends JFrame  {
             graphToBack.drawString("EGYPTIAN WAR", 350, 25);
             drawCenter(graphToBack);
             twoDGraph.drawImage(back, null, 0, 0);
-//            playGame();
-
         }
 
         public void drawCenter(Graphics graphToBack){
@@ -91,62 +94,42 @@ public class EgyptianWarClient extends JFrame  {
 //            }
         }
 
-        public void keyPressed(KeyEvent e)
-        {
-            if (e.getKeyCode()==KeyEvent.VK_1){
-                keys[0]=true;
-                System.out.println("keys[0] is true");
-            }
-            if(e.getKeyCode()==KeyEvent.VK_SPACE){
-                keys[1]=true;
-                System.out.println("Card burnt");
-            }
-            if(e.getKeyCode()==KeyEvent.VK_N){
-                keys[2]=true;
-                System.out.println("n pressed");
-            }
-            repaint();
+        public void keyPressed(KeyEvent e) {
+            // do nothing
         }
 
         public void keyReleased(KeyEvent e) {
-            if (e.getKeyCode()==KeyEvent.VK_1){
-                keys[0]=false;
-			/*do {
-					if ((players.get(i)).getHandSize() > 0 && keys[0]){
-						System.out.println("card placed");
-						Card c = (players.get(i)).placeCard();
-						if (c != null){
-							center.add(0, c);
-						}
-					}
-				}while ((players.get(i)).getPlace() > 0);*/
+            if (playerNumber == 1) {
+                if (e.getKeyCode() == KeyEvent.VK_1) {
+                    out.println("ACTION PLACE_CARD");
+                } else if (e.getKeyCode() == KeyEvent.VK_2) {
+                    out.println("ACTION SLAP");
+                }
+            } else {
+                if (e.getKeyCode() == KeyEvent.VK_9) {
+                    out.println("ACTION PLACE_CARD");
+                } else if (e.getKeyCode() == KeyEvent.VK_0) {
+                    out.println("ACTION SLAP");
+                }
             }
-            if(e.getKeyCode()==KeyEvent.VK_SPACE){
-                keys[1]=false;
-            }
-            if(e.getKeyCode()==KeyEvent.VK_N){
-                keys[2]=false;
-            }
-            repaint();
         }
 
-//        public void keyTyped(KeyEvent e)
-//        {
-//            //I put this here because it's always been here
-//        }
-
+    public void keyTyped(KeyEvent evt) {
+        // do nothing
+    }
 
     public static void main(String[] args) throws Exception {
         if (args.length != 1) {
             System.err.println("Pass the server IP as the sole command line argument");
             return;
         }
+
         EgyptianWarClient client = new EgyptianWarClient(args[0]);
-        //other setup things
-//        setVisible(true);
-//        this.addKeyListener(this);
-//        new Thread(this).start();
+        client.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        client.setSize(WIDTH, HEIGHT);
+        client.setVisible(true);
+        client.setResizable(false);
+        client.addKeyListener(client);
         client.play();
     }
 }
-

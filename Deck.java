@@ -2,58 +2,56 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Deck {
-  public static final int NUMFACES = 13;
-  public static final int NUMSUITS = 4;
-  public static final int NUMCARDS = 52;
+  public static final int NUM_FACES = 13;
+  public static final int NUM_SUITS = 4;
+  public static final int NUM_CARDS = 52;
 
-  public static final String SUITS[] = {"CLUBS","SPADES","DIAMONDS","HEARTS"};
+  public static final String SUITS[] = { "CLUBS", "SPADES", "DIAMONDS", "HEARTS" };
 
   private int topCardIndex;
   private ArrayList<Card> stackOfCards;
 
   public Deck () {
-    //initialize data - stackOfCards - topCardIndex
     stackOfCards = new ArrayList<Card>();
-    topCardIndex = NUMCARDS -1;
+    topCardIndex = NUM_CARDS - 1;
                 
-    for (int s = 0; s < 4; s++){
-    	for (int f = 0; f < 13; f++){
-    		Card card = new Card(f,SUITS[s]);
+    for (int s = 0; s < NUM_SUITS; s++){
+    	for (int f = 0; f < NUM_FACES; f++){
+    		Card card = new Card(f, SUITS[s]);
     		stackOfCards.add(card);
     	}
     }
   }
 
-  //modifiers
   public void shuffle () {
     Collections.shuffle(stackOfCards);
-    topCardIndex = stackOfCards.size() -1;
+    topCardIndex = getSize() - 1;
   }
 
-  //accessors
-  public int size () {
+  public int getSize() {
     return stackOfCards.size();
   }
 
-  public int numCardsLeft() {
+  public int numRemainingCards() {
     return topCardIndex + 1;
   }
 
-  public Card nextCard() {
+  public Card getNextCard() {
   	if (topCardIndex < 0){
   		return null;
   	}
     return stackOfCards.get(topCardIndex--);
   }
 
-  public Card remove(int i){
-    if (i < stackOfCards.size())
+  public Card removeFromDeck(int i){
+    if (i < getSize()) {
       return stackOfCards.remove(i);
-    else
+    } else {
       return null;
+    }
   }
 
   public String toString() {
-    return stackOfCards + "   topCardIndex = " + topCardIndex;
+    return stackOfCards + "  topCardIndex = " + topCardIndex;
   } 
 }

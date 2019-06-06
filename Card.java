@@ -7,7 +7,7 @@ import javax.imageio.ImageIO;
 
 public class Card
 {
-  public static final String FACES[] = {"ACE","TWO","THREE","FOUR","FIVE","SIX","SEVEN","EIGHT","NINE","TEN","JACK","QUEEN","KING"};
+  public static final String FACES[] = { "ACE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "EIGHT", "NINE", "TEN", "JACK", "QUEEN", "KING" };
 
   private String suit;
   private int face;
@@ -18,8 +18,8 @@ public class Card
   public Card(int f, String s){
   	suit = s;
   	face = f;
-    name=FACES[face]+suit;
-    path="images/"+name.toLowerCase()+".gif";    
+    name = FACES[face] + suit;
+    path = "images/" + name.toLowerCase() + ".gif";
   }
 
   public boolean isRoyal(){
@@ -53,14 +53,11 @@ public class Card
     return false;
   }
 
-  //for client
-  public void draw(Graphics window,int x,int y,int w,int h)
-  {
-    window.drawImage(image,x,y,w,h,null);
+  public void draw(Graphics window, int x, int y, int w, int h) {
+    window.drawImage(image, x, y, w, h,null);
   }
   
-  //toString
   public String toString(){
-     return FACES[face] + " of " + getSuit();  	
+      return FACES[face] + " of " + getSuit();
   }
 }

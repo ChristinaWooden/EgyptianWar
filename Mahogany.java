@@ -10,19 +10,16 @@ public class Mahogany {
   private int height;
 
   public Mahogany(int w, int h) {
-    width=w;
-    height=h;
+    width = w;
+    height = h;
     try {
       URL url = getClass().getResource("images/mahogany.jpg");
       image = ImageIO.read(url);
-    } catch(Exception e) {}
+    } catch(Exception e) {
+    }
   }
 
   public void draw(Graphics window) {
-    window.drawImage(image,0,0,width,height,null);
-  }
-
-  public String toString() {
-    return "A picture is worth a thousand words";
+    window.drawImage(image,0,0, width, height, null);
   }
 }
