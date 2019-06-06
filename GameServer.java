@@ -18,18 +18,20 @@ import java.util.concurrent.Executors;
  * This is just a teaching example so it can be enhanced in many ways, e.g., better
  * logging. Another is to accept a lot of fun commands, like Slack.
  */
-public class ChatServer {
+public class GameServer {
 
     // All client names, so we can check for duplicates upon registration.
-    private static Set<String> names = new HashSet<>();
+    //private static Set<String> names = new HashSet<>();
 
      // The set of all the print writers for all the clients, used for broadcast.
-    private static Set<PrintWriter> writers = new HashSet<>();
+    //private static Set<PrintWriter> writers = new HashSet<>();
+
+
 
     public static void main(String[] args) throws Exception {
-        System.out.println("The chat server is running...");
+        System.out.println("The game server is running...");
         var pool = Executors.newFixedThreadPool(500);
-        try (var listener = new ServerSocket(59001)) {
+        try (var listener = new ServerSocket(6966696)) {
             while (true) {
                 pool.execute(new Handler(listener.accept()));
             }
@@ -64,6 +66,8 @@ public class ChatServer {
             try {
                 in = new Scanner(socket.getInputStream());
                 out = new PrintWriter(socket.getOutputStream(), true);
+
+// this is just picking a name - we won't need it ***************************************
 
                 // Keep requesting a name until we get a unique one.
                 while (true) {

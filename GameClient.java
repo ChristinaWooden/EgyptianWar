@@ -24,7 +24,7 @@ import javax.swing.JTextField;
  * server. When the server sends a line beginning with "MESSAGE" then all characters
  * following this string should be displayed in its message area.
  */
-public class ChatClient {
+public class GameClient {
 
     String serverAddress;
     Scanner in;
@@ -40,7 +40,7 @@ public class ChatClient {
      * only becomes editable AFTER the client receives the NAMEACCEPTED message from
      * the server.
      */
-    public ChatClient(String serverAddress) {
+    public GameClient(String serverAddress) {
         this.serverAddress = serverAddress;
 
         textField.setEditable(false);
