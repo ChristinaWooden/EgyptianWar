@@ -18,6 +18,7 @@ public class EgyptianWarClient extends JFrame implements KeyListener {
     private BufferedImage back;
     private int upperDisplay;
     private boolean[] keys;
+    private ArrayList<Card> center;
 
     private Socket socket;
     private Scanner in;
@@ -86,12 +87,12 @@ public class EgyptianWarClient extends JFrame implements KeyListener {
         }
 
         public void drawCenter(Graphics graphToBack){
-//            upperDisplay=Math.min(4,center.size());
-//            if(center.size()>0){
-//                for(int i=upperDisplay-1;i>=0;i--){
-//                    (center.get(i)).draw(graphToBack, (150+((upperDisplay - i)*69)), 200, 100, 150);
-//                }
-//            }
+            upperDisplay=Math.min(4,center.size());
+            if(center.size()>0){
+                for(int i=upperDisplay-1;i>0;i--){
+                    (center.get(i)).draw(graphToBack, (150+((upperDisplay - i)*69)), 200, 100, 150);
+                }
+            }
         }
 
         public void keyPressed(KeyEvent e) {
