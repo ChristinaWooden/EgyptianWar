@@ -15,7 +15,6 @@ public class Card
   private String path;
   private Image image;
 
-<<<<<<< HEAD
   //constructors
   public Card(){
     String name="";
@@ -91,14 +90,8 @@ public class Card
 
   public void setFace(int f){
   	face = f;
-=======
-  public Card(int f, String s){
-  	suit = s;
-  	face = f;
-    name = FACES[face] + suit;
-    path = "images/" + name.toLowerCase() + ".gif";
->>>>>>> f3af03fad547daaf1c63a174a01476b4f9913fae
-  }
+
+   } 
 
   public boolean isRoyal(){
   	return (getFace() == 0 || getFace() == 10 || getFace() == 11 || getFace() == 12);
