@@ -14,7 +14,6 @@ public class EgyptianWarServer {
     private static final int PORT = 58901;
     private static final int MAX_THREADS = 2;
 
-
     public static void main(String[] args) throws Exception {
         try(ServerSocket listener = new ServerSocket(PORT)) {
             System.out.println("Egyptian War Server is Running...");
@@ -32,68 +31,20 @@ public class EgyptianWarServer {
 class EgyptianWar {
     private Deck deck;
     private ArrayList<Card> center;
-    private boolean[] keys;
-//    private BufferedImage back;
-    private ArrayList<Player> players;
-//    private int upperDisplay;
     private int playerCounter = 0;
 
     Player currentPlayer;
 
     public EgyptianWar()
     {
-        //instance variables
         deck = new Deck();
         deck.shuffle();
         center = new ArrayList<Card>();
-        //keys = new boolean[3];
-        players = new ArrayList<Player>();
     }
-
-//	public Player addPlayer(Socket socket) {
-//		Player player = new Player(socket, ++playerCounter);
-//		players.add(player);
-//		return player;
-//	}
-
-//    public void start() {
-//        //other setup things
-//        setVisible(true);
-//        new Thread(this).start();
-//        this.addKeyListener(this);
-//    }
-
-//    public void keyPressed(KeyEvent e)
-//    {
-//        if (e.getKeyCode()==KeyEvent.VK_1){
-//            keys[0]=true;
-//        }
-//        if(e.getKeyCode()==KeyEvent.VK_SPACE){
-//            keys[1]=true;
-//        }
-//        if(e.getKeyCode()==KeyEvent.VK_N){
-//            keys[2]=true;
-//        }
-//        repaint();
-//    }
-//
-//    public void keyReleased(KeyEvent e)
-//    {
-//        if (e.getKeyCode()==KeyEvent.VK_1){
-//            keys[0]=false;
-//        }
-//        if(e.getKeyCode()==KeyEvent.VK_SPACE){
-//            keys[1]=false;
-//        }
-//        if(e.getKeyCode()==KeyEvent.VK_N){
-//            keys[2]=false;
-//        }
-//        repaint();
-//    }
 
     public boolean isDouble(){
         if (center.size() >= 2){
-            if (center.get(0).getFace()==center.get(1).getFace()&&center.get(0).getFace()<10&&center.get(1).getFace()<10){
+            if (center.get(0).getFace()==center.get(1).getFace()&&center.get(0).getFace()<10&&center.get(1).getFace()<10) {
                 return true;
             }
         }
@@ -110,26 +61,6 @@ class EgyptianWar {
         }
         return false;
     }
-
-//    public boolean isMarriage(){
-//        if(center.size()>=2){
-//            if(center.get(0).getFace()>10){
-//                if(center.get(1).getFace()!=center.get(0).getFace()&&center.get(1).getFace()>10){
-//                    return true;
-//                }
-//            }
-//        }
-//        return false;
-//    }
-//
-//public boolean isGay(){
-//    if (center.size() >= 2){
-//        if (center.get(0).getFace()==center.get(1).getFace()&&center.get(0).getFace()>=10&&center.get(1).getFace()>=10){
-//            return true;
-//        }
-//    }
-//    return false;
-//}
 
     public boolean isQueen(int num){
         if (center.size() > 0){
@@ -172,151 +103,91 @@ class EgyptianWar {
     }
 
     public boolean gameOver(){
-        int count = players.size();
-        for (int i = 0; i < players.size(); i++){
-            if ((players.get(i)).getHandSize() == 0){
-                count--;
-            }
-        }
-        return (count == 1);
-    }
-
-//    public void keyTyped(KeyEvent e)
-//    {
-//        //I put this here because it's always been here
-//    }
-
-//    public void update(Graphics window)
-//    {
-//        paint(window);
-//    }
-
-    public void paint(Graphics window) {
-//        Graphics2D twoDGraph=(Graphics2D)window;
-//        if(back==null)
-//            back = (BufferedImage)(createImage(getWidth(),getHeight()));
-//        Graphics graphToBack = back.createGraphics();
-////        mahogany.draw(graphToBack);
-//        center.add(new Card());
-//        center.add(new Card());
-//        center.add(new Card());
-//        upperDisplay=Math.min(4,center.size()-1);
-//        if(center.size()>0){
-//			for(int i=upperDisplay;i>=0;i--){
-//		  		(center.get(i)).draw(graphToBack, (150+((upperDisplay - i)*69)), 200, 100, 150);
-//			}
-//		}
-//		graphToBack.setColor(Color.WHITE);
-//		graphToBack.fillRect(150, 10, 500, 150);
-//		graphToBack.setColor(Color.BLACK);
-//		graphToBack.drawString("EGYPTIAN WAR", 350, 25);
-
-        //long ass code block that basically makes a player place the right amount of cards
-//        do {
-//            twoDGraph.drawImage(back, null, 0, 0);
-//            playGame();
-//        } while (!gameOver());
-
-
-        //twoDGraph.drawImage(back, null, 0, 0);
+        return currentPlayer.getHandSize() == 0 || currentPlayer.opponent.getHandSize() == 0;
     }
 
     public void playGame(){
-        for (int i = 0; i < players.size(); i++){
-            if (center.size() > 0){
-                if (isAce(0)){
-                    (players.get(i)).setPlace(4);
-                } else if (isKing(0)){
-                    (players.get(i)).setPlace(3);
-                } else if (isQueen(0)){
-                    (players.get(i)).setPlace(2);
-                } else if (isJack(0)){
-                    (players.get(i)).setPlace(1);
-                } else{
-                    (players.get(i)).setPlace(1);
-                }
-            } else {
-                (players.get(i)).setPlace(1);
-            }
-
-            //add a card while you are still supposed to
-            int place = (players.get(i)).getPlace();
-
-            do {
-                if (keys[0] && (players.get(i)).getHandSize() > 0){
-                    Card c = (players.get(i)).placeCard();
-                    if (c != null){
-                        System.out.println("card placed from EgyptianWar");
-                        center.add(0, c);
-                        (players.get(i)).setPlace((players.get(i)).getPlace() - 1);
-                        System.out.println("place is decremented");
-                    }
-                    System.out.println("place value:: " + place);
-                }
-            }while (place > 0);
-
-
-            if (isQueen(0) || isJack(0) || isKing(0) || isAce(0)){
-                (players.get(i)).setPlace(0);
-            }
-
-            //if player n does not play a face card after player n-1 does, player n-1 will gain the cards
-            if (i > 0 && center.size() > 1){
-                if (isJack(1) && !isFace(0)){
-                    for (int e = center.size()-1; e >= 0; e--){
-                        (players.get(i-1)).addCard(center.remove(e));
-                    }
-                } else if (center.size() > 2 && isQueen(2) && !isFace(0)){
-                    for (int e = center.size()-1; e >= 0; e--){
-                        (players.get(i-1)).addCard(center.remove(e));
-                    }
-                } else if (center.size() > 3 && !isFace(0) && isKing(3)){
-                    for (int e = center.size()-1; e >= 0; e--){
-                        (players.get(i-1)).addCard(center.remove(e));
-                    }
-                } else if (center.size() > 4 && isAce(4) && !isFace(0)){
-                    for (int e = center.size()-1; e >= 0; e--){
-                        (players.get(i-1)).addCard(center.remove(e));
-                    }
-                }
-            }
-        }
-
-
-        //code to check if slap is legal
-        for (int i = 0; i < players.size(); i++){
-            if (keys[1]){
-                if (isDouble() || isSandwich()){
-                    for (int e = 0; e < center.size(); e++){
-                        (players.get(i)).addCard(center.remove(e));
-                    }
-                } else {
-                    Card c = (players.get(i)).burn();
-                    if (c != null){
-                        center.add(c);
-                    }
-                }
-            }
-        }
+//        for (int i = 0; i < players.size(); i++){
+//            if (center.size() > 0){
+//                if (isAce(0)){
+//                    (players.get(i)).setPlace(4);
+//                } else if (isKing(0)){
+//                    (players.get(i)).setPlace(3);
+//                } else if (isQueen(0)){
+//                    (players.get(i)).setPlace(2);
+//                } else if (isJack(0)){
+//                    (players.get(i)).setPlace(1);
+//                } else{
+//                    (players.get(i)).setPlace(1);
+//                }
+//            } else {
+//                (players.get(i)).setPlace(1);
+//            }
+//
+//            //add a card while you are still supposed to
+//            int place = (players.get(i)).getPlace();
+//
+//            do {
+//                if (keys[0] && (players.get(i)).getHandSize() > 0){
+//                    Card c = (players.get(i)).placeCard();
+//                    if (c != null){
+//                        System.out.println("card placed from EgyptianWar");
+//                        center.add(0, c);
+//                        (players.get(i)).setPlace((players.get(i)).getPlace() - 1);
+//                        System.out.println("place is decremented");
+//                    }
+//                    System.out.println("place value:: " + place);
+//                }
+//            }while (place > 0);
+//
+//
+//            if (isQueen(0) || isJack(0) || isKing(0) || isAce(0)){
+//                (players.get(i)).setPlace(0);
+//            }
+//
+//            //if player n does not play a face card after player n-1 does, player n-1 will gain the cards
+//            if (i > 0 && center.size() > 1){
+//                if (isJack(1) && !isFace(0)){
+//                    for (int e = center.size()-1; e >= 0; e--){
+//                        (players.get(i-1)).addCard(center.remove(e));
+//                    }
+//                } else if (center.size() > 2 && isQueen(2) && !isFace(0)){
+//                    for (int e = center.size()-1; e >= 0; e--){
+//                        (players.get(i-1)).addCard(center.remove(e));
+//                    }
+//                } else if (center.size() > 3 && !isFace(0) && isKing(3)){
+//                    for (int e = center.size()-1; e >= 0; e--){
+//                        (players.get(i-1)).addCard(center.remove(e));
+//                    }
+//                } else if (center.size() > 4 && isAce(4) && !isFace(0)){
+//                    for (int e = center.size()-1; e >= 0; e--){
+//                        (players.get(i-1)).addCard(center.remove(e));
+//                    }
+//                }
+//            }
+//        }
+//
+//        //code to check if slap is legal
+//        for (int i = 0; i < players.size(); i++){
+//            if (keys[1]){
+//                if (isDouble() || isSandwich()){
+//                    for (int e = 0; e < center.size(); e++){
+//                        (players.get(i)).addCard(center.remove(e));
+//                    }
+//                } else {
+//                    Card c = (players.get(i)).burn();
+//                    if (c != null){
+//                        center.add(c);
+//                    }
+//                }
+//            }
+//        }
     }
 
-//    public void run() {
-//        try {
-//            while(true) {
-//                Thread.currentThread().sleep(5);
-//                repaint();
-//            }
-//        } catch(Exception e) {
-//            System.out.println("Exception caught ????");
-//        }
-//    }
-//}
-
     public class Player implements Runnable {
-//        private int wins;
         private int place; //number of cards the player must place at any given moment
         private ArrayList<Card> hand;
-        private Card recentCard = null;
+        private Card recentCard;
         private Socket socket;
         private int playerNumber;
         Scanner input;
@@ -325,13 +196,12 @@ class EgyptianWar {
 
         public Player(Socket socket, int playerNumber){
             hand = new ArrayList<Card>();
-//            wins = 0;
             place = 1;
             this.socket = socket;
             this.playerNumber = playerNumber;
         }
 
-        public void addCard(Card c){
+        public void addCard(Card c) {
             hand.add(c);
         }
 
@@ -339,21 +209,16 @@ class EgyptianWar {
             return hand.size();
         }
 
-//        public int getNumWins(){
-//            return wins;
-//        }
-//
-//        public void setNumWins(int num){
-//            wins = num;
-//        }
-
         public void run() {
             try {
                 setup();
             } catch(Exception e) {
                 e.printStackTrace();
             } finally {
-                try {socket.close();} catch (IOException e) {}
+                try {
+                    socket.close();
+                } catch (IOException e) {
+                }
             }
         }
 

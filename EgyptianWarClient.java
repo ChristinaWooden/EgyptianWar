@@ -14,8 +14,6 @@ public class EgyptianWarClient extends JFrame  {
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
 
-    private Deck deck;
-    private ArrayList<Card> center;
     private Mahogany mahogany;
     private BufferedImage back;
     private int upperDisplay;
@@ -31,7 +29,6 @@ public class EgyptianWarClient extends JFrame  {
         out = new PrintWriter(socket.getOutputStream(), true);
         keys = new boolean[3];
         mahogany = new Mahogany(WIDTH,HEIGHT);
-        center = new ArrayList<Card>();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
@@ -86,12 +83,12 @@ public class EgyptianWarClient extends JFrame  {
         }
 
         public void drawCenter(Graphics graphToBack){
-            upperDisplay=Math.min(4,center.size());
-            if(center.size()>0){
-                for(int i=upperDisplay-1;i>=0;i--){
-                    (center.get(i)).draw(graphToBack, (150+((upperDisplay - i)*69)), 200, 100, 150);
-                }
-            }
+//            upperDisplay=Math.min(4,center.size());
+//            if(center.size()>0){
+//                for(int i=upperDisplay-1;i>=0;i--){
+//                    (center.get(i)).draw(graphToBack, (150+((upperDisplay - i)*69)), 200, 100, 150);
+//                }
+//            }
         }
 
         public void keyPressed(KeyEvent e)
@@ -111,8 +108,7 @@ public class EgyptianWarClient extends JFrame  {
             repaint();
         }
 
-        public void keyReleased(KeyEvent e)
-        {
+        public void keyReleased(KeyEvent e) {
             if (e.getKeyCode()==KeyEvent.VK_1){
                 keys[0]=false;
 			/*do {
