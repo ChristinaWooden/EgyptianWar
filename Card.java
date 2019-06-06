@@ -7,7 +7,7 @@ import javax.imageio.ImageIO;
 
 public class Card
 {
-  public static final String FACES[] = {"ACE","TWO","THREE","FOUR","FIVE","SIX","SEVEN","EIGHT","NINE","TEN","JACK","QUEEN","KING"};
+  public static final String FACES[] = { "ACE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "EIGHT", "NINE", "TEN", "JACK", "QUEEN", "KING" };
 
   private String suit;
   private int face;
@@ -15,6 +15,7 @@ public class Card
   private String path;
   private Image image;
 
+<<<<<<< HEAD
   //constructors
   public Card(){
     String name="";
@@ -90,12 +91,18 @@ public class Card
 
   public void setFace(int f){
   	face = f;
+=======
+  public Card(int f, String s){
+  	suit = s;
+  	face = f;
+    name = FACES[face] + suit;
+    path = "images/" + name.toLowerCase() + ".gif";
+>>>>>>> f3af03fad547daaf1c63a174a01476b4f9913fae
   }
 
   public boolean isRoyal(){
   	return (getFace() == 0 || getFace() == 10 || getFace() == 11 || getFace() == 12);
   }
- 
 
   //accessors
   public String getSuit(){
@@ -124,15 +131,11 @@ public class Card
     return false;
   }
 
-  public void draw(Graphics window,int x,int y,int w,int h)
-  {
-    window.drawImage(image,x,y,w,h,null);
+  public void draw(Graphics window, int x, int y, int w, int h) {
+    window.drawImage(image, x, y, w, h,null);
   }
   
-  //toString
-
   public String toString(){
-     return FACES[face] + " of " + getSuit();  	
+      return FACES[face] + " of " + getSuit();
   }
-        
 }

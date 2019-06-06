@@ -6,15 +6,10 @@ JC = javac
 
 CLASSES = \
 	Card.java \
-	CardTestOne.java \
-	Player.java \
 	Deck.java \
-	DeckTestOne.java \
 	Mahogany.java \
-	GameClient.java \
-	GameServer.java \
-	TheGame.java \
-	EgyptianWar.java
+	EgyptianWarServer.java \
+	EgyptianWarClient.java
 
 default: classes
 
