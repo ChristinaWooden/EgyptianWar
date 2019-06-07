@@ -51,7 +51,7 @@ public class EgyptianWarClient extends JFrame implements KeyListener {
                 	String facesuit = response.substring(11);
                 	int face = Integer.parseInt((facesuit.substring(0, facesuit.indexOf(" "))));
                 	String suit = facesuit.substring(facesuit.indexOf(" ") + 1);
-                	center.add(new Card(face, suit));
+                	center.add(0, new Card(face, suit));
 
                 } else if (response.startsWith("MESSAGE")) {
                     System.out.println(response.substring(8));
@@ -109,7 +109,7 @@ public class EgyptianWarClient extends JFrame implements KeyListener {
         public void drawCenter(Graphics graphToBack){
             upperDisplay=Math.min(4,center.size());
             if(center.size()>0){
-                for(int i=upperDisplay-1;i>0;i--){
+                for(int i=upperDisplay-1;i>=0;i--){
                    (center.get(i)).draw(graphToBack, (150+((upperDisplay - i)*69)), 300, 120, 150);
                 }
             }
