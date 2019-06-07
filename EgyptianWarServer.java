@@ -211,6 +211,7 @@ class EgyptianWar {
                     opponent.output.println("DEFEAT");
                 } else if (action.equals("PLACE_CARD")) {
                     Card placedCard = player.placeCard();
+                    output.println("PLACED_CARD_FACE" + placedCard.getFace() + " " + placedCard.getSuit());
                     center.add(0, placedCard);
                     System.out.println("Card placed: " + placedCard);
 
