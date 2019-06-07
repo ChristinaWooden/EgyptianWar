@@ -226,7 +226,6 @@ class EgyptianWar {
                         opponent.setPlace(newOpponentPlace);
                     }
 
-
                     // checks who gets cards after cards are placed, if it should be collected
 //                if (center.size() > 1){
 //                    if (isJack(center.get(1).getFace()) && !isFace(placed.getFace())){
@@ -243,15 +242,15 @@ class EgyptianWar {
                 } else if (action.equals("SLAP")) {
                     System.out.println("Slap chop");
                     // TODO: IMPLEMENT
-//                if (isDouble() || isSandwich()){
-//                    collectCards(player);
-//                } else {
-//                    Card c = (player.burn());
-//                    System.out.println("You burned!!");
-//                    if (c != null){
-//                        center.add(c);
-//                    }
-//                }
+                   if (isDouble() || isSandwich()){
+                       collectCards(player);
+                   } else {
+                       Card c = (player.burn());
+                       System.out.println("You burned!!");
+                       if (c != null){
+                           center.add(c);
+                       }
+                   }
                 }
             } catch (Exception e) {
                 output.println("MESSAGE " + e.getMessage());
@@ -291,16 +290,9 @@ class EgyptianWar {
             return place;
         }
 
-        //call this method only after you have called placeCard and mustPlace, because the method counts on the recentCard being updated to what was just placed
-        /*public void payMoreCards(){
-            if (recentCard.isRoyal()){
-                place = 0;
-            }
-        }*/
-
-        public boolean slap() {
-            return true;
-        }
+//         public boolean slap() {
+//             return true;
+//         }
 
         public Card burn() {
             if (hand.size() > 0) {
