@@ -45,12 +45,19 @@ public class EgyptianWarClient extends JFrame implements KeyListener {
                 response = in.nextLine();
                 if (response.startsWith("VALID_ACTION")) {
                     System.out.println("Valid action made... need to do something" + response);
+
+                } else if (response.startsWith("PLACED_CARD_FACE")){
+                	String facestring = response.substring(12);
+                	int face = Integer.parseInt((response.substring(0, response.indexOf(" "))));
+                	String suit = response.substring(response.indexOf(" ") + 1);
+                	center.add(new Card(face, suit));
                 } else if (response.startsWith("MESSAGE")) {
                     System.out.println(response.substring(8));
                 } else if (response.equals("OTHER_PLAYER_LEFT")) {
                     System.out.println("QUITTING");
                     break;
                 }
+
                 repaint();
             }
             out.println("QUIT");
@@ -60,6 +67,7 @@ public class EgyptianWarClient extends JFrame implements KeyListener {
             socket.close();
         }
     }
+
 
 //        public void start() {
 //        //other setup things
@@ -113,7 +121,8 @@ public class EgyptianWarClient extends JFrame implements KeyListener {
             if (playerNumber == 1) {
                 if (e.getKeyCode() == KeyEvent.VK_1) {
                     out.println("ACTION PLACE_CARD");
-                } else if (e.getKeyCode() == KeyEvent.VK_2) {
+                }
+                 if (e.getKeyCode() == KeyEvent.VK_2) {
                     out.println("ACTION SLAP");
                 }
             } else {
