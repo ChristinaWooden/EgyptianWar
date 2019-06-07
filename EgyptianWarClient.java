@@ -72,8 +72,8 @@ public class EgyptianWarClient extends JFrame implements KeyListener {
             paint(window);
         }
 
-        public void addToCenter(Card c){
-        	center.add(c);
+        public void setCenter(ArrayList<Card> c){
+        	center = c;
         }
 
         public ArrayList<Card> getCenter(){
