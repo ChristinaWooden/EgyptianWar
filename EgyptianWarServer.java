@@ -241,6 +241,7 @@ class EgyptianWar {
 
                 } else if (action.equals("SLAP")) {
                     System.out.println("Slap chop");
+                    System.outprintln(player.getHandSize());
                     // TODO: IMPLEMENT
                    if (isDouble() || isSandwich()){
                        collectCards(player);
