@@ -33,6 +33,7 @@ public class EgyptianWarClient extends JFrame implements KeyListener {
 
         keys = new boolean[3];
         mahogany = new Mahogany(WIDTH, HEIGHT);
+        center = new ArrayList<Card>();
     }
 
     public void play() throws Exception {
@@ -50,6 +51,7 @@ public class EgyptianWarClient extends JFrame implements KeyListener {
                     System.out.println("QUITTING");
                     break;
                 }
+                repaint();
             }
             out.println("QUIT");
         } catch (Exception e) {
@@ -66,9 +68,17 @@ public class EgyptianWarClient extends JFrame implements KeyListener {
 //        this.addKeyListener(this);
 //        }
 
-//        public void update(Graphics window) {
-//            paint(window);
-//        }
+        public void update(Graphics window) {
+            paint(window);
+        }
+
+        public void addToCenter(Card c){
+        	center.add(c);
+        }
+
+        public ArrayList<Card> getCenter(){
+        	return center;
+        }
 
         public void paint(Graphics window) {
             Graphics2D twoDGraph = (Graphics2D)window;
@@ -81,7 +91,7 @@ public class EgyptianWarClient extends JFrame implements KeyListener {
             graphToBack.setColor(Color.WHITE);
             graphToBack.fillRect(150, 10, 500, 150);
             graphToBack.setColor(Color.BLACK);
-            graphToBack.drawString("EGYPTIAN WAR", 350, 25);
+            graphToBack.drawString("EGYPTIAN WAR", 350, 45);
             drawCenter(graphToBack);
             twoDGraph.drawImage(back, null, 0, 0);
         }
@@ -90,7 +100,7 @@ public class EgyptianWarClient extends JFrame implements KeyListener {
             upperDisplay=Math.min(4,center.size());
             if(center.size()>0){
                 for(int i=upperDisplay-1;i>0;i--){
-                    (center.get(i)).draw(graphToBack, (150+((upperDisplay - i)*69)), 200, 100, 150);
+                   (center.get(i)).draw(graphToBack, (150+((upperDisplay - i)*69)), 300, 120, 150);
                 }
             }
         }
@@ -113,6 +123,7 @@ public class EgyptianWarClient extends JFrame implements KeyListener {
                     out.println("ACTION SLAP");
                 }
             }
+            repaint();
         }
 
     public void keyTyped(KeyEvent evt) {
