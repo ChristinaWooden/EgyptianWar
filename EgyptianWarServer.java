@@ -247,6 +247,7 @@ class EgyptianWar {
                    } else {
                        Card c = (player.burn());
                        System.out.println("You burned!!");
+                       System.out.println(player.getHandSize());
                        if (c != null){
                            center.add(c);
                        }
