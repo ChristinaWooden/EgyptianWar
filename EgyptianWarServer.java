@@ -36,12 +36,14 @@ class EgyptianWar {
         center = new ArrayList<Card>();
     }
 
-    public synchronized void move(Player plr) {
-        if (plr != player) {
+    public synchronized void move(Player plr, String action) {
+        if (plr != player && action.equals("PLACE_CARD")) {
             throw new IllegalStateException("Not your turn");
-        } else if (player.opponent == null) {
+        } else
+            if (player.opponent == null) {
             throw new IllegalStateException("You don't have an opponent yet");
         }
+        player = player.opponent;
     }
 
     public boolean isDouble() {
@@ -140,11 +142,9 @@ class EgyptianWar {
         }
 
         //during each play, a player will place down the "last" card in their ArrayList in the center pile.  The returned Card will be added to the center deck.
-        //player will still be able to slap into the game if they have no cards left
         public Card placeCard() {
-            System.out.println("card placed from player method");
+//            System.out.println("card placed from player method");
             recentCard = hand.get(0);
-            place = getPlace() - 1;
             return hand.remove(0);
         }
 
@@ -182,7 +182,8 @@ class EgyptianWar {
             } else {
                 opponent = player;
                 opponent.opponent = this;
-                opponent.output.println("MESSAGE Your move");
+                opponent.output.println("MESSAGE Your turn");
+                output.println("MESSAGE Waiting for opponent to start");
             }
 
             if (player != null && opponent != null) {
@@ -203,56 +204,57 @@ class EgyptianWar {
 
         private void processAction(String action) {
             try {
-                move(player);
-                output.println("VALID_ACTION");
-                opponent.output.println("OPPONENT_ACTION " + action);
+                output.println("MESSAGE You have " + this.getHandSize() + " cards.");
+                move(this, action);
                 if (gameOver()) {
                     output.println("VICTORY");
                     opponent.output.println("DEFEAT");
                 } else if (action.equals("PLACE_CARD")) {
-                    Card placedCard = player.placeCard();
+                    Card placedCard = this.placeCard();
                     output.println("PLACED_CARD" + placedCard.getFace() + " " + placedCard.getSuit());
+                    opponent.output.println("PLACED_CARD" + placedCard.getFace() + " " + placedCard.getSuit());
+
                     center.add(0, placedCard);
+
                     System.out.println("Card placed: " + placedCard);
+                    output.println("MESSAGE Card placed: " + placedCard);
+                    opponent.output.println("MESSAGE Opponent placed card: " + placedCard);
 
                     int cardFace = placedCard.getFace();
 
-                    int newPlayerPlace = isFace(cardFace) ? 0 : Math.max(0, player.getPlace() - 1);
-                    player.setPlace(newPlayerPlace);
+                    int newPlayerPlace = isFace(cardFace) ? 0 : Math.max(0, this.getPlace() - 1);
+                    this.setPlace(newPlayerPlace);
 
-                    if (player.getPlace() == 0 && opponent.getPlace() == 0) {
-                        collectCards(player);
+                    if (this.getPlace() == 0 && isFace(this.recentCard.getFace())) {
+                        if(opponent.getPlace() == 0 && !isFace(opponent.recentCard.getFace())) {
+                            output.println("MESSAGE Opponent lost round!");
+                            opponent.output.println("MESSAGE You lost this round!");
+
+                            collectCards(this);
+                            output.println("CLEAR");
+                            opponent.output.println("CLEAR");
+                            output.println("MESSAGE You collect!");
+                        }
                     } else {
                         int newOpponentPlace = isAce(cardFace) ? 4 : isKing(cardFace) ? 3 : isQueen(cardFace) ? 2 : 1;
                         opponent.setPlace(newOpponentPlace);
                     }
-
-                    // checks who gets cards after cards are placed, if it should be collected
-//                if (center.size() > 1){
-//                    if (isJack(center.get(1).getFace()) && !isFace(placed.getFace())){
-//                            collectCards(opponent);
-//                    } else if (center.size() > 2 && isQueen(center.get(2).getFace()) && !isFace(placed.getFace())){
-//                            collectCards(opponent);
-//                    } else if (center.size() > 3 && isKing(center.get(3).getFace()) && !isFace(placed.getFace())){
-//                            collectCards(opponent);
-//                    } else if (center.size() > 4 && isAce(center.get(4).getFace()) && !isFace(placed.getFace())){
-//                            collectCards(opponent);
-//                    }
-//                }
-
                 } else if (action.equals("SLAP")) {
                     System.out.println("Slap chop");
-                    System.out.println(player.getHandSize());
+                    System.out.println(this.getHandSize());
                     // TODO: IMPLEMENT
                    if (isDouble() || isSandwich()){
-                       collectCards(player);
+                       collectCards(this);
+                       output.println("CLEAR");
+                       opponent.output.println("CLEAR");
                    } else {
-                       Card c = (player.burn());
-                       System.out.println("You burned!!");
-                       System.out.println(player.getHandSize());
-                       if (c != null){
-                           center.add(c);
-                       }
+                       this.burn();
+                       System.out.println("Burned!!");
+                       output.println("MESSAGE You burned!!");
+                       output.println("MESSAGE You have " + this.getHandSize() + " cards.");
+                       opponent.output.println("MESSAGE Your opponent burned!!");
+                       System.out.println(this.getHandSize());
+                       move(this, action);
                    }
                 }
             } catch (Exception e) {
@@ -293,15 +295,8 @@ class EgyptianWar {
             return place;
         }
 
-//         public boolean slap() {
-//             return true;
-//         }
-
-        public Card burn() {
-            if (hand.size() > 0) {
-                return hand.remove(0);
-            }
-            return null;
+        public void burn() {
+            center.add(hand.remove(getHandSize()-1));
         }
     }
 }

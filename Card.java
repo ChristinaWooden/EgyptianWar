@@ -22,13 +22,10 @@ public class Card
   	face = 4;
     name=FACES[face]+suit;
     path="images/"+name.toLowerCase()+".gif";
-    try
-    {
+    try {
       URL url = getClass().getResource(path);
       image = ImageIO.read(url);
-    }
-    catch(Exception e)
-    {
+    } catch(Exception e) {
       System.out.println("cannot find image");
     }
   }
@@ -38,13 +35,10 @@ public class Card
   	face = 3;
     name=FACES[face]+suit;
     path="images/"+name.toLowerCase()+".gif";    
-    try
-    {
+    try {
       URL url = getClass().getResource(path);
       image = ImageIO.read(url);
-    }
-    catch(Exception e)
-    {
+    } catch(Exception e) {
       System.out.println("cannot find image");
     }
   }
@@ -54,13 +48,10 @@ public class Card
   	face = f;
     name=FACES[face]+suit;
     path="images/"+name.toLowerCase()+".gif";    
-    try
-    {
+    try {
       URL url = getClass().getResource(path);
       image = ImageIO.read(url);
-    }
-    catch(Exception e)
-    {
+    } catch(Exception e) {
       System.out.println("cannot find image");
     }
   }
@@ -70,32 +61,24 @@ public class Card
   	face = f;
     name=FACES[face]+suit;
     path="images/"+name.toLowerCase()+".gif";
-    try
-    {
+    try {
       URL url = getClass().getResource(path);
       image = ImageIO.read(url);
-    }
-    catch(Exception e)
-    {
+    } catch(Exception e) {
       System.out.println("cannot find image");
     }    
   }
 
 
   // modifiers
-
-  public void setSuit(String s){
-  	suit = s;
-  }
-
-  public void setFace(int f){
-  	face = f;
-
-   } 
-
-  public boolean isRoyal(){
-  	return (getFace() == 0 || getFace() == 10 || getFace() == 11 || getFace() == 12);
-  }
+//  public void setSuit(String s){
+//  	suit = s;
+//  }
+//
+//  public void setFace(int f){
+//  	face = f;
+//
+//   }
 
   //accessors
   public String getSuit(){

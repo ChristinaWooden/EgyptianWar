@@ -39,27 +39,31 @@ public class EgyptianWarClient extends JFrame implements KeyListener {
     public void play() throws Exception {
         try {
             var response = in.nextLine();
-            System.out.println(response);
+//            System.out.println(response);
             playerNumber = Integer.parseInt(response.substring(16));
             while (in.hasNextLine()) {
                 response = in.nextLine();
-                if (response.startsWith("VALID_ACTION")) {
-                    System.out.println("Valid action made... need to do something" + response);
-
-                } else if (response.startsWith("PLACED_CARD")){
-
-                	String facesuit = response.substring(11);
-                	int face = Integer.parseInt((facesuit.substring(0, facesuit.indexOf(" "))));
-                	String suit = facesuit.substring(facesuit.indexOf(" ") + 1);
-                	center.add(0, new Card(face, suit));
-
+                if (response.startsWith("PLACED_CARD")){
+                	String faceSuit = response.substring(11);
+                	int face = Integer.parseInt((faceSuit.substring(0, faceSuit.indexOf(" "))));
+                	String suit = faceSuit.substring(faceSuit.indexOf(" ") + 1);
+                	Card placedCard = new Card(face, suit);
+                	center.add(0, placedCard);
+                	repaint();
+                } else if (response.startsWith("CLEAR")) {
+                    center.clear();
                 } else if (response.startsWith("MESSAGE")) {
                     System.out.println(response.substring(8));
+                } else if (response.startsWith("VICTORY")) {
+                    System.out.println("Winner Winner");
+                    break;
+                } else if (response.startsWith("DEFEAT")) {
+                    System.out.println("Sorry you lost");
+                    break;
                 } else if (response.equals("OTHER_PLAYER_LEFT")) {
                     System.out.println("QUITTING");
                     break;
                 }
-
                 repaint();
             }
             out.println("QUIT");
@@ -69,14 +73,6 @@ public class EgyptianWarClient extends JFrame implements KeyListener {
             socket.close();
         }
     }
-
-
-//        public void start() {
-//        //other setup things
-//        setVisible(true);
-//        new Thread(this).start();
-//        this.addKeyListener(this);
-//        }
 
         public void update(Graphics window) {
             paint(window);
