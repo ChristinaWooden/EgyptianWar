@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -68,8 +69,9 @@ public class EgyptianWarClient extends JFrame implements KeyListener {
                 } else if (response.startsWith("DEFEAT")) {
                     System.out.println("Sorry you lost");
                     break;
-                } else if (response.equals("OTHER_PLAYER_LEFT")) {
+                } else if (response.equals("OTHER_PLAYER_LEFT") || response.equals("QUIT")) {
                     System.out.println("QUITTING");
+                    this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
                     break;
                 }
                 repaint();
@@ -127,15 +129,18 @@ public class EgyptianWarClient extends JFrame implements KeyListener {
             if (playerNumber == 1) {
                 if (e.getKeyCode() == KeyEvent.VK_1) {
                     out.println("ACTION PLACE_CARD");
-                }
-                 if (e.getKeyCode() == KeyEvent.VK_2) {
+                } else if (e.getKeyCode() == KeyEvent.VK_2) {
                     out.println("ACTION SLAP");
+                } else if (e.getKeyCode() == KeyEvent.VK_Q) {
+                    out.println("QUIT");
                 }
             } else {
                 if (e.getKeyCode() == KeyEvent.VK_9) {
                     out.println("ACTION PLACE_CARD");
                 } else if (e.getKeyCode() == KeyEvent.VK_0) {
                     out.println("ACTION SLAP");
+                } else if (e.getKeyCode() == KeyEvent.VK_P) {
+                    out.println("QUIT");
                 }
             }
             repaint();

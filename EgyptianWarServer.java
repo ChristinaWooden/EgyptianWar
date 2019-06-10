@@ -166,7 +166,9 @@ class EgyptianWar {
             while (input.hasNextLine()) {
                 String command = input.nextLine();
                 if (command.startsWith("QUIT")) {
-                    return;
+                    output.println("QUIT");
+                    opponent.output.println("QUIT");
+                    break;
                 } else if (command.startsWith("ACTION")) {
                     processAction(command.substring(7));
                 }
