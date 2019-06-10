@@ -244,8 +244,10 @@ class EgyptianWar {
                        output.println("CLEAR");
                        opponent.output.println("CLEAR");
                    } else {
-                       this.burn();
+                       Card c = this.burn();
                        System.out.println("Burned!!");
+                       output.println("BURNED_CARD" + c.getFace() + " " + c.getSuit());
+                       opponent.output.println("BURNED_CARD" + c.getFace() + " " + c.getSuit());
                        output.println("MESSAGE You burned!!");
                        output.println("MESSAGE You have " + this.getHandSize() + " cards.");
                        opponent.output.println("MESSAGE Your opponent burned!!");
@@ -288,10 +290,11 @@ class EgyptianWar {
             return place;
         }
 
-        public void burn() {
+        public Card burn() {
             if(getHandSize() > 0) {
-                center.add(hand.remove(getHandSize() - 1));
+                return (hand.remove(getHandSize() - 1));
             }
+            return null;
         }
     }
 }
