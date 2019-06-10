@@ -50,6 +50,13 @@ public class EgyptianWarClient extends JFrame implements KeyListener {
                 	Card placedCard = new Card(face, suit);
                 	center.add(0, placedCard);
                 	repaint();
+                } else if (response.startsWith("BURNED_CARD")){
+                	String faceSuit = response.substring(11);
+                	int face = Integer.parseInt((faceSuit.substring(0, faceSuit.indexOf(" "))));
+                	String suit = faceSuit.substring(faceSuit.indexOf(" ") + 1);
+                	Card placedCard = new Card(face, suit);
+                	center.add(placedCard);
+                	repaint();
                 } else if (response.startsWith("CLEAR")) {
                     center.clear();
                 } else if (response.startsWith("MESSAGE")) {
