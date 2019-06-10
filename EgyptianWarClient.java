@@ -39,7 +39,7 @@ public class EgyptianWarClient extends JFrame implements KeyListener {
 
     public void play() throws Exception {
         try {
-            var response = in.nextLine();
+            String response = in.nextLine();
 //            System.out.println(response);
             playerNumber = Integer.parseInt(response.substring(16));
             while (in.hasNextLine()) {
