@@ -29,6 +29,7 @@ class EgyptianWar {
     private ArrayList<Card> center;
 
     Player player;
+    Player lastPlayerWithFaceCard;
 
     public EgyptianWar() {
         deck = new Deck();
@@ -36,13 +37,7 @@ class EgyptianWar {
         center = new ArrayList<Card>();
     }
 
-    public synchronized void move(Player plr, String action) {
-        if (plr != player && action.equals("PLACE_CARD")) {
-            throw new IllegalStateException("Not your turn");
-        } else
-            if (player.opponent == null) {
-            throw new IllegalStateException("You don't have an opponent yet");
-        }
+    public synchronized void changePlayer(Player plr, String action) {
         player = player.opponent;
     }
 
@@ -66,40 +61,20 @@ class EgyptianWar {
         return false;
     }
 
-    public boolean isQueen(int num) {
-        if (center.size() > 0) {
-            if ((center.get(num)).getFace() == 11) {
-                return true;
-            }
-        }
-        return false;
+    public boolean isJack(int num) {
+        return num == 10;
     }
 
-    public boolean isJack(int num) {
-        if (center.size() > 0) {
-            if ((center.get(num)).getFace() == 10) {
-                return true;
-            }
-        }
-        return false;
+    public boolean isQueen(int num) {
+        return num == 11;
     }
 
     public boolean isKing(int num) {
-        if (center.size() > 0) {
-            if ((center.get(num)).getFace() == 12) {
-                return true;
-            }
-        }
-        return false;
+        return num == 12;
     }
 
     public boolean isAce(int num) {
-        if (center.size() > 0) {
-            if ((center.get(num)).getFace() == 0) {
-                return true;
-            }
-        }
-        return false;
+        return num == 0;
     }
 
     public boolean isFace(int num) {
@@ -111,11 +86,8 @@ class EgyptianWar {
     }
 
     public void dealCardsToPlayers() {
-        //deal cards to each player
         while (deck.getSize() > 0 && deck.getSize() % 2 == 0) {
-            // player 1
             player.addCard(deck.removeFromDeck(0));
-            // player 2
             player.opponent.addCard(deck.removeFromDeck(0));
         }
     }
@@ -143,7 +115,6 @@ class EgyptianWar {
 
         //during each play, a player will place down the "last" card in their ArrayList in the center pile.  The returned Card will be added to the center deck.
         public Card placeCard() {
-//            System.out.println("card placed from player method");
             recentCard = hand.get(0);
             return hand.remove(0);
         }
@@ -204,15 +175,23 @@ class EgyptianWar {
 
         private void processAction(String action) {
             try {
+                if (this != player && action.equals("PLACE_CARD")) {
+                    throw new IllegalStateException("Not your turn");
+                } else
+                if (player.opponent == null) {
+                    throw new IllegalStateException("You don't have an opponent yet");
+                }
+
                 output.println("MESSAGE You have " + this.getHandSize() + " cards.");
-                move(this, action);
                 if (gameOver()) {
-                    output.println("VICTORY");
-                    opponent.output.println("DEFEAT");
+                    //fix this so that the correct person's terminal prints victory......
+                    output.println("DEFEAT");
+                    opponent.output.println("VICTORY");
                 } else if (action.equals("PLACE_CARD")) {
-                    Card placedCard = this.placeCard();
+                    Card placedCard = placeCard();
                     output.println("PLACED_CARD" + placedCard.getFace() + " " + placedCard.getSuit());
                     opponent.output.println("PLACED_CARD" + placedCard.getFace() + " " + placedCard.getSuit());
+                    // fix toString for card to fit this??^^^
 
                     center.add(0, placedCard);
 
@@ -222,22 +201,39 @@ class EgyptianWar {
 
                     int cardFace = placedCard.getFace();
 
-                    int newPlayerPlace = isFace(cardFace) ? 0 : Math.max(0, this.getPlace() - 1);
-                    this.setPlace(newPlayerPlace);
+                    int newPlayerPlace = isFace(cardFace) ? 0 : Math.max(0, getPlace() - 1);
+                    setPlace(newPlayerPlace);
 
-                    if (this.getPlace() == 0 && isFace(this.recentCard.getFace())) {
-                        if(opponent.getPlace() == 0 && !isFace(opponent.recentCard.getFace())) {
-                            output.println("MESSAGE Opponent lost round!");
-                            opponent.output.println("MESSAGE You lost this round!");
+                    if(isFace(cardFace)) {
+                        lastPlayerWithFaceCard = this;
+                    }
 
-                            collectCards(this);
-                            output.println("CLEAR");
-                            opponent.output.println("CLEAR");
-                            output.println("MESSAGE You collect!");
-                        }
-                    } else {
+                    if (getPlace() == 0 && isFace(recentCard.getFace())) {
                         int newOpponentPlace = isAce(cardFace) ? 4 : isKing(cardFace) ? 3 : isQueen(cardFace) ? 2 : 1;
                         opponent.setPlace(newOpponentPlace);
+                    }
+
+                    if (lastPlayerWithFaceCard != null && getPlace() == 0 && opponent.getPlace() == 0) {
+                        if(lastPlayerWithFaceCard == this) {
+                            output.println("MESSAGE You won this round!");
+                            output.println("MESSAGE You collect!");
+                            opponent.output.println("MESSAGE You lost this round!");
+                            opponent.output.println("MESSAGE Your opponent collected!");
+                            collectCards(this);
+                        } else {
+                            opponent.output.println("MESSAGE You won this round!");
+                            opponent.output.println("MESSAGE You collect!");
+                            output.println("MESSAGE You lost this round!");
+                            output.println("MESSAGE Your opponent collected!");
+                            collectCards(opponent);
+
+                        }
+                        output.println("CLEAR");
+                        opponent.output.println("CLEAR");
+                    }
+
+                    if (getPlace() == 0) {
+                        changePlayer(this, action);
                     }
                 } else if (action.equals("SLAP")) {
                     System.out.println("Slap chop");
@@ -254,7 +250,6 @@ class EgyptianWar {
                        output.println("MESSAGE You have " + this.getHandSize() + " cards.");
                        opponent.output.println("MESSAGE Your opponent burned!!");
                        System.out.println(this.getHandSize());
-                       move(this, action);
                    }
                 }
             } catch (Exception e) {
@@ -266,6 +261,7 @@ class EgyptianWar {
             for (int i = center.size() - 1; i >= 0; i--) {
                 recipient.addCard(center.remove(i));
             }
+            lastPlayerWithFaceCard = null;
         }
 
         //the card played before the player determines the number of cards each player must play
@@ -274,10 +270,7 @@ class EgyptianWar {
         }
 
         public int getPlace() {
-            if (hand.size() < 0) {
-                return place;
-            }
-            return 0;
+            return place;
         }
 
         public int mustPlace(int face) {
@@ -296,7 +289,9 @@ class EgyptianWar {
         }
 
         public void burn() {
-            center.add(hand.remove(getHandSize()-1));
+            if(getHandSize() > 0) {
+                center.add(hand.remove(getHandSize() - 1));
+            }
         }
     }
 }
