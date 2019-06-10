@@ -185,8 +185,8 @@ class EgyptianWar {
                 output.println("MESSAGE You have " + this.getHandSize() + " cards.");
                 if (gameOver()) {
                     //fix this so that the correct person's terminal prints victory......
-                    output.println("DEFEAT");
-                    opponent.output.println("VICTORY");
+                    output.println("VICTORY");
+                    opponent.output.println("DEFEAT");
                 } else if (action.equals("PLACE_CARD")) {
                     Card placedCard = placeCard();
                     output.println("PLACED_CARD" + placedCard.getFace() + " " + placedCard.getSuit());
