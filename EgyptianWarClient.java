@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 public class EgyptianWarClient extends JFrame implements KeyListener {
 
     private static final int PORT = 58901;
