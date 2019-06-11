@@ -45,20 +45,20 @@ public class EgyptianWarClient extends JFrame implements KeyListener {
             playerNumber = Integer.parseInt(response.substring(16));
             while (in.hasNextLine()) {
                 response = in.nextLine();
-                if (response.startsWith("PLACED_CARD")){
-                	String faceSuit = response.substring(11);
-                	int face = Integer.parseInt((faceSuit.substring(0, faceSuit.indexOf(" "))));
-                	String suit = faceSuit.substring(faceSuit.indexOf(" ") + 1);
-                	Card placedCard = new Card(face, suit);
-                	center.add(0, placedCard);
-                	repaint();
-                } else if (response.startsWith("BURNED_CARD")){
-                	String faceSuit = response.substring(11);
-                	int face = Integer.parseInt((faceSuit.substring(0, faceSuit.indexOf(" "))));
-                	String suit = faceSuit.substring(faceSuit.indexOf(" ") + 1);
-                	Card placedCard = new Card(face, suit);
-                	center.add(placedCard);
-                	repaint();
+                if (response.startsWith("PLACED_CARD")) {
+                    String faceSuit = response.substring(11);
+                    int face = Integer.parseInt((faceSuit.substring(0, faceSuit.indexOf(" "))));
+                    String suit = faceSuit.substring(faceSuit.indexOf(" ") + 1);
+                    Card placedCard = new Card(face, suit);
+                    center.add(0, placedCard);
+                    repaint();
+                } else if (response.startsWith("BURNED_CARD")) {
+                    String faceSuit = response.substring(11);
+                    int face = Integer.parseInt((faceSuit.substring(0, faceSuit.indexOf(" "))));
+                    String suit = faceSuit.substring(faceSuit.indexOf(" ") + 1);
+                    Card placedCard = new Card(face, suit);
+                    center.add(placedCard);
+                    repaint();
                 } else if (response.startsWith("CLEAR")) {
                     center.clear();
                 } else if (response.startsWith("MESSAGE")) {
@@ -84,67 +84,67 @@ public class EgyptianWarClient extends JFrame implements KeyListener {
         }
     }
 
-        public void update(Graphics window) {
-            paint(window);
-        }
+    public void update(Graphics window) {
+        paint(window);
+    }
 
-        public void setCenter(ArrayList<Card> c){
-        	center = c;
-        }
+    public void setCenter(ArrayList<Card> c) {
+        center = c;
+    }
 
-        public ArrayList<Card> getCenter(){
-        	return center;
-        }
+    public ArrayList<Card> getCenter() {
+        return center;
+    }
 
-        public void paint(Graphics window) {
-            Graphics2D twoDGraph = (Graphics2D)window;
-            if (back == null) {
-                back = (BufferedImage)(createImage(getWidth(), getHeight()));
+    public void paint(Graphics window) {
+        Graphics2D twoDGraph = (Graphics2D) window;
+        if (back == null) {
+            back = (BufferedImage) (createImage(getWidth(), getHeight()));
+        }
+        Graphics graphToBack = back.createGraphics();
+        mahogany.draw(graphToBack);
+
+        graphToBack.setColor(Color.WHITE);
+        graphToBack.fillRect(150, 10, 500, 150);
+        graphToBack.setColor(Color.BLACK);
+        graphToBack.drawString("EGYPTIAN WAR", 350, 45);
+        drawCenter(graphToBack);
+        twoDGraph.drawImage(back, null, 0, 0);
+    }
+
+    public void drawCenter(Graphics graphToBack) {
+        upperDisplay = Math.min(4, center.size());
+        if (center.size() > 0) {
+            for (int i = upperDisplay - 1; i >= 0; i--) {
+                (center.get(i)).draw(graphToBack, (150 + ((upperDisplay - i) * 69)), 300, 120, 150);
             }
-            Graphics graphToBack = back.createGraphics();
-            mahogany.draw(graphToBack);
-
-            graphToBack.setColor(Color.WHITE);
-            graphToBack.fillRect(150, 10, 500, 150);
-            graphToBack.setColor(Color.BLACK);
-            graphToBack.drawString("EGYPTIAN WAR", 350, 45);
-            drawCenter(graphToBack);
-            twoDGraph.drawImage(back, null, 0, 0);
         }
+    }
 
-        public void drawCenter(Graphics graphToBack){
-            upperDisplay=Math.min(4,center.size());
-            if(center.size()>0){
-                for(int i=upperDisplay-1;i>=0;i--){
-                   (center.get(i)).draw(graphToBack, (150+((upperDisplay - i)*69)), 300, 120, 150);
-                }
+    public void keyPressed(KeyEvent e) {
+        // do nothing
+    }
+
+    public void keyReleased(KeyEvent e) {
+        if (playerNumber == 1) {
+            if (e.getKeyCode() == KeyEvent.VK_1) {
+                out.println("ACTION PLACE_CARD");
+            } else if (e.getKeyCode() == KeyEvent.VK_2) {
+                out.println("ACTION SLAP");
+            } else if (e.getKeyCode() == KeyEvent.VK_Q) {
+                out.println("QUIT");
+            }
+        } else {
+            if (e.getKeyCode() == KeyEvent.VK_9) {
+                out.println("ACTION PLACE_CARD");
+            } else if (e.getKeyCode() == KeyEvent.VK_0) {
+                out.println("ACTION SLAP");
+            } else if (e.getKeyCode() == KeyEvent.VK_P) {
+                out.println("QUIT");
             }
         }
-
-        public void keyPressed(KeyEvent e) {
-            // do nothing
-        }
-
-        public void keyReleased(KeyEvent e) {
-            if (playerNumber == 1) {
-                if (e.getKeyCode() == KeyEvent.VK_1) {
-                    out.println("ACTION PLACE_CARD");
-                } else if (e.getKeyCode() == KeyEvent.VK_2) {
-                    out.println("ACTION SLAP");
-                } else if (e.getKeyCode() == KeyEvent.VK_Q) {
-                    out.println("QUIT");
-                }
-            } else {
-                if (e.getKeyCode() == KeyEvent.VK_9) {
-                    out.println("ACTION PLACE_CARD");
-                } else if (e.getKeyCode() == KeyEvent.VK_0) {
-                    out.println("ACTION SLAP");
-                } else if (e.getKeyCode() == KeyEvent.VK_P) {
-                    out.println("QUIT");
-                }
-            }
-            repaint();
-        }
+        repaint();
+    }
 
     public void keyTyped(KeyEvent evt) {
         // do nothing

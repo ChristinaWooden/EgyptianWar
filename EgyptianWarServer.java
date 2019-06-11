@@ -179,8 +179,7 @@ class EgyptianWar {
             try {
                 if (this != player && action.equals("PLACE_CARD")) {
                     throw new IllegalStateException("Not your turn");
-                } else
-                if (player.opponent == null) {
+                } else if (player.opponent == null) {
                     throw new IllegalStateException("You don't have an opponent yet");
                 }
 
@@ -206,7 +205,7 @@ class EgyptianWar {
                     int newPlayerPlace = isFace(cardFace) ? 0 : Math.max(0, getPlace() - 1);
                     setPlace(newPlayerPlace);
 
-                    if(isFace(cardFace)) {
+                    if (isFace(cardFace)) {
                         lastPlayerWithFaceCard = this;
                     }
 
@@ -216,7 +215,7 @@ class EgyptianWar {
                     }
 
                     if (lastPlayerWithFaceCard != null && getPlace() == 0 && opponent.getPlace() == 0) {
-                        if(lastPlayerWithFaceCard == this) {
+                        if (lastPlayerWithFaceCard == this) {
                             output.println("MESSAGE You won this round!");
                             output.println("MESSAGE You collect!");
                             opponent.output.println("MESSAGE You lost this round!");
@@ -241,20 +240,20 @@ class EgyptianWar {
                     System.out.println("Slap chop");
                     System.out.println(this.getHandSize());
                     // TODO: IMPLEMENT
-                   if (isDouble() || isSandwich()){
-                       collectCards(this);
-                       output.println("CLEAR");
-                       opponent.output.println("CLEAR");
-                   } else {
-                       Card c = this.burn();
-                       System.out.println("Burned!!");
-                       output.println("BURNED_CARD" + c.getFace() + " " + c.getSuit());
-                       opponent.output.println("BURNED_CARD" + c.getFace() + " " + c.getSuit());
-                       output.println("MESSAGE You burned!!");
-                       output.println("MESSAGE You have " + this.getHandSize() + " cards.");
-                       opponent.output.println("MESSAGE Your opponent burned!!");
-                       System.out.println(this.getHandSize());
-                   }
+                    if (isDouble() || isSandwich()) {
+                        collectCards(this);
+                        output.println("CLEAR");
+                        opponent.output.println("CLEAR");
+                    } else {
+                        Card c = this.burn();
+                        System.out.println("Burned!!");
+                        output.println("BURNED_CARD" + c.getFace() + " " + c.getSuit());
+                        opponent.output.println("BURNED_CARD" + c.getFace() + " " + c.getSuit());
+                        output.println("MESSAGE You burned!!");
+                        output.println("MESSAGE You have " + this.getHandSize() + " cards.");
+                        opponent.output.println("MESSAGE Your opponent burned!!");
+                        System.out.println(this.getHandSize());
+                    }
                 }
             } catch (Exception e) {
                 output.println("MESSAGE " + e.getMessage());
@@ -293,7 +292,7 @@ class EgyptianWar {
         }
 
         public Card burn() {
-            if(getHandSize() > 0) {
+            if (getHandSize() > 0) {
                 return (hand.remove(getHandSize() - 1));
             }
             return null;
