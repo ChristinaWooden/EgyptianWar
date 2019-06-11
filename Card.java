@@ -20,7 +20,7 @@ public class Card {
         suit = "SPADES";
         face = 4;
         name = FACES[face] + suit;
-        path = "images/" + name.toLowerCase() + ".gif";
+        path = "images/" + name.toLowerCase() + ".GIF";
         try {
             URL url = getClass().getResource(path);
             image = ImageIO.read(url);
@@ -33,7 +33,7 @@ public class Card {
         suit = s;
         face = 3;
         name = FACES[face] + suit;
-        path = "images/" + name.toLowerCase() + ".gif";
+        path = "images/" + name.toLowerCase() + ".GIF";
         try {
             URL url = getClass().getResource(path);
             image = ImageIO.read(url);
@@ -46,7 +46,7 @@ public class Card {
         suit = "SPADES";
         face = f;
         name = FACES[face] + suit;
-        path = "images/" + name.toLowerCase() + ".gif";
+        path = "images/" + name.toLowerCase() + ".GIF";
         try {
             URL url = getClass().getResource(path);
             image = ImageIO.read(url);
@@ -59,7 +59,7 @@ public class Card {
         suit = s;
         face = f;
         name = FACES[face] + suit;
-        path = "images/" + name.toLowerCase() + ".gif";
+        path = "images/" + name.toLowerCase() + ".GIF";
         try {
             URL url = getClass().getResource(path);
             image = ImageIO.read(url);
